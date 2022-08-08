@@ -5,9 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Reportes Accor</title>
 
     <!-- Fonts -->
+    <link rel="icon" href="{{ asset('img/icono.ico') }}">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
@@ -62,7 +63,7 @@
 
                                 <h2 class="fw-bold mb-2 text-uppercase">Reportes Accor</h2>
                                 <img src="https://1000marcas.net/wp-content/uploads/2021/06/Accor-logo.png"
-                                    width="100px" alt="">
+                                    width="200px" alt="">
                                 <br />
                                 <br />
                                 @if (Route::has('login'))
@@ -72,12 +73,14 @@
                                             <a href="{{ url('/home') }}" class="btn btn-dark w-100">Home</a>
                                             <br />
                                         @else
-                                            <a href="{{ route('login') }}" class="btn btn-dark w-100">Login</a>
+                                            <a href="{{ route('login') }}" class="btn btn-secondary btn-lg w-100">Login</a>
                                             <br />
                                             <br />
+                                            <!--
                                             @if (Route::has('register'))
                                                 <a href="{{ route('register') }}" class="btn btn-dark w-100">Register</a>
                                             @endif
+                                            -->
                                     @endif
                                 </div>
                                 @endif

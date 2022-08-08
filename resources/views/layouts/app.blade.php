@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>@yield('title') | {{ config('app.name') }}</title>
+    <link rel="icon" href="{{ asset('img/icono.ico') }}">
+    <title>Reportes Accor</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 4.1.1 -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -120,7 +120,8 @@
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
                 this.submit();

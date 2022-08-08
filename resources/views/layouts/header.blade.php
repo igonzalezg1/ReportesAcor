@@ -16,7 +16,7 @@
 
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">
-                    Vienvenido, {{ \Illuminate\Support\Facades\Auth::user()->first_name }}</div>
+                    Bienvenido, {{ \Illuminate\Support\Facades\Auth::user()->first_name }}</div>
                     <a class="dropdown-item has-icon" data-toggle="modal" data-target="#changeImageModal" href="#"
                     data-id="{{ \Auth::id() }}"><i class="fa fa-lock"> </i>Cambiar foto de perfil</a>
                 <a class="dropdown-item has-icon" data-toggle="modal" data-target="#changePasswordModal" href="#"
