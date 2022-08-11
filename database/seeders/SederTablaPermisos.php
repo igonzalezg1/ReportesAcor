@@ -21,10 +21,8 @@ class SederTablaPermisos extends Seeder
             'editar-rol',
             'borrar-rol',
 
-            'ver-blog',
-            'crear-blog',
-            'editar-blog',
-            'borrar-blog',
+            'accor',
+            'accor-novotel',
 
             'ver-user',
             'crear-user',

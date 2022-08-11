@@ -87,6 +87,8 @@
       <data directive="@json" injection="true" prefix="&lt;?php echo json_encode(" suffix=") ?&gt;" />
       <data directive="@lang" injection="true" prefix="&lt;?php echo app('translator')-&gt;get(" suffix="); ?&gt;" />
       <data directive="@method" injection="true" prefix="&lt;?php echo method_field(" suffix="); ?&gt;" />
+      <data directive="@notifyCss" />
+      <data directive="@notifyJs" />
       <data directive="@once" />
       <data directive="@overwrite" />
       <data directive="@parent" />
