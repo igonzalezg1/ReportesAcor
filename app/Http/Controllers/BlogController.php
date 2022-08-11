@@ -22,7 +22,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::paginate(10);
+        $blogs = Blog::all();
         return view('blogs.index', compact('blogs'));
     }
 

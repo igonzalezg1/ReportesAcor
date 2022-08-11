@@ -13,39 +13,41 @@
                             @can('crear-blog')
                                 <a class="btn btn-warning w-100" href="{{ route('blogs.create') }}">Nuevo</a>
                             @endcan
-                            <table class="table table-striped mt-2">
-                                <thead style="background-color: #6777ef;">
-                                    <th style="color: #ffff;">ID</th>
-                                    <th style="color: #ffff;">Titulo</th>
-                                    <th style="color: #ffff;">Contenido</th>
-                                    <th style="color: #ffff;">Acciones</th>
-                                </thead>
-                                <tbody>
-                                    @foreach ($blogs as $blog)
-                                        <tr>
-                                            <td>{{ $blog->id }}</td>
-                                            <td>{{ $blog->titulo }}</td>
-                                            <td>
-                                                @can('editar-blog')
-                                                    <a class="btn btn-info"
-                                                        href="{{ route('blogs.edit', $blog->id) }}">Editar</a>
-                                                @endcan
-                                                @can('borrar-blog')
-                                                    {!! Form::open([
-                                                        'method' => 'DELETE',
-                                                        'route' => ['blogs.destroy', $blog->id],
-                                                        'style' => 'display: inline',
-                                                    ]) !!}
-                                                    {!! Form::submit('borrar', ['class' => 'btn btn-danger']) !!}
-                                                    {!! Form::close() !!}
-                                                @endcan
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <div class="pagination justify-content-end">
-                                {{ $blogs->links() }}
+                            <br />
+                            <br />
+                            <div class="table-responsive">
+                                <table id="example" class="table table-striped table-bordered" style="width:100%"
+                                    cellspacing="0">
+                                    <thead>
+                                        <th>ID</th>
+                                        <th>Titulo</th>
+                                        <th>Contenido</th>
+                                        <th>Acciones</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($blogs as $blog)
+                                            <tr>
+                                                <td>{{ $blog->id }}</td>
+                                                <td>{{ $blog->titulo }}</td>
+                                                <td>
+                                                    @can('editar-blog')
+                                                        <a class="btn btn-info"
+                                                            href="{{ route('blogs.edit', $blog->id) }}">Editar</a>
+                                                    @endcan
+                                                    @can('borrar-blog')
+                                                        {!! Form::open([
+                                                            'method' => 'DELETE',
+                                                            'route' => ['blogs.destroy', $blog->id],
+                                                            'style' => 'display: inline',
+                                                        ]) !!}
+                                                        {!! Form::submit('borrar', ['class' => 'btn btn-danger']) !!}
+                                                        {!! Form::close() !!}
+                                                    @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

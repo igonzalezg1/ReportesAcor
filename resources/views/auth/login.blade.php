@@ -51,11 +51,11 @@
 
                 <div class="form-group">
                     <!-- <div class="custom-control custom-checkbox">
-                            <input type="checkbox" name="remember" class="custom-control-input" tabindex="3"
-                                   id="remember"{{ Cookie::get('remember') !== null ? 'checked' : '' }}>
-                            <label class="custom-control-label" for="remember">Recordar usuario</label>
-                        </div>
-                        -->
+                                <input type="checkbox" name="remember" class="custom-control-input" tabindex="3"
+                                       id="remember"{{ Cookie::get('remember') !== null ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="remember">Recordar usuario</label>
+                            </div>
+                            -->
                 </div>
 
                 <div class="form-group">
