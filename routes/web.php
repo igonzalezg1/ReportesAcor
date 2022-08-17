@@ -20,7 +20,7 @@ use App\Http\Controllers\OpcionesExtrasController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -31,6 +31,9 @@ Route::post('cambiarfotop', [App\Http\Controllers\OpcionesExtrasController::clas
 Route::group(['middleware'=> ['auth']], function(){
     Route::resource('roles', RolController::class);
     Route::resource('usuarios', UsuarioController::class);
-    Route::resource('blogs', BlogController::class);
     Route::resource('roles', RolController::class);
+
+    //Rutas de reportes
+
+    Route::get('getRespuestas/{id_encuesta}/{id_bloque}/{punto}', [App\Http\Controllers\ReportesController::class, 'getRespuestas'])->name('getRespuestas');
 });

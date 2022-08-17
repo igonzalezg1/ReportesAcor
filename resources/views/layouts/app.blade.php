@@ -44,10 +44,14 @@
         .btn-group-vertical {
             position: absolute !important;
         }
+
+         .micolor{
+             background-color: #414956;
+         }
     </style>
     <style>
         .enca{
-            background: linear-gradient(to left, #EACC6D 10%, #000000) !important;
+            background: linear-gradient(to left,#FFE158 10%, #FFA851) !important;
         }
     </style>
 </head>
@@ -60,7 +64,7 @@
                 @include('layouts.header')
 
             </nav>
-            <div class="main-sidebar main-sidebar-postion">
+            <div class="main-sidebar main-sidebar-postion micolor">
                 @include('layouts.sidebar')
             </div>
             <!-- Main Content -->
@@ -195,25 +199,96 @@
             buttons:[
                 {
                     extend: 'excelHtml5',
-                    text: '<i class="fas fa-file-excel"></i>',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
                     tittleAttr: 'Exportar a Excel',
                     className: 'btn btn-success'
                 },
                 {
                     extend: 'pdfHtml5',
-                    text: '<i class="fas fa-file-pdf"></i>',
+                    text: '<i class="fas fa-file-pdf"></i> PDF',
                     tittleAttr: 'Exportar a PDF',
                     className: 'btn btn-danger'
                 },
                 {
                     extend: 'print',
-                    text: '<i class="fas fa-print"></i>',
+                    text: '<i class="fas fa-print"></i> Imprimir',
                     tittleAttr: 'Imprimir',
                     className: 'btn btn-info'
+                },
+                {
+                    extend: 'copy',
+                    text: '<i class="fas fa-copy"></i> Copiar',
+                    tittleAttr: 'Copiar en portapapeles',
+                    className: 'btn btn-success'
+                },
+                {
+                    extend: 'csvHtml5',
+                    text: '<i class="fas fa-file-csv"></i> CSV',
+                    tittleAttr: 'Exportar a CSV',
+                    className: 'btn btn-danger'
                 },
             ]
         });
     });
 </script>
-
+<script>
+    $(document).ready(function() {
+        $('#reportes').DataTable({
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+            responsive: "true",
+            dom:"Bfrtilp",
+            buttons:[
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    tittleAttr: 'Exportar a Excel',
+                    className: 'btn btn-success'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: '<i class="fas fa-file-pdf"></i> PDF',
+                    tittleAttr: 'Exportar a PDF',
+                    className: 'btn btn-danger'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i> Imprimir',
+                    tittleAttr: 'Imprimir',
+                    className: 'btn btn-info'
+                },
+                {
+                    extend: 'copy',
+                    text: '<i class="fas fa-copy"></i> Copiar',
+                    tittleAttr: 'Copiar en portapapeles',
+                    className: 'btn btn-success'
+                },
+                {
+                    extend: 'csvHtml5',
+                    text: '<i class="fas fa-file-csv"></i> CSV',
+                    tittleAttr: 'Exportar a CSV',
+                    className: 'btn btn-danger'
+                },
+            ]
+        });
+    });
+</script>
 </html>

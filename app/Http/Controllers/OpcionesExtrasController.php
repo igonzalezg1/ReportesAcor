@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\tb_encuesta_bloque;
+use App\Models\tb_encuesta_pregunta;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -57,7 +58,7 @@ class OpcionesExtrasController extends Controller
 
     public static function getEncuestas()
     {
-        $encuestas = tb_encuesta::where('id_app', 16)->get();
+        $encuestas = tb_encuesta::where('id_app', 16)->where('c_nombre_encuesta','NOT LIKE', '%Anual%')->get();
 
         return $encuestas;
     }
@@ -69,10 +70,10 @@ class OpcionesExtrasController extends Controller
         return $bloques;
     }
 
-    public static function getEncuestasN()
+    public static function getAnualBim()
     {
-        $encuestas2 = tb_encuesta::where('id_app', 24)->get();
+        $encuestas3 = tb_encuesta::where('id_app', 16)->where('c_nombre_encuesta','LIKE', '%Anual%')->get();
 
-        return $encuestas2;
+        return $encuestas3;
     }
 }
