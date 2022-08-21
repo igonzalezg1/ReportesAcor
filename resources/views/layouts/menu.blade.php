@@ -4,11 +4,7 @@ use App\Http\Controllers\OpcionesExtrasController;
 
 $encuestas = OpcionesExtrasController::getEncuestas();
 
-$encuestas2 = OpcionesExtrasController::getEncuestasN();
-
 $encuestas3 = OpcionesExtrasController::getAnualBim();
-
-$encuestas4 = OpcionesExtrasController::getAnualBimN();
 
 
 ?>

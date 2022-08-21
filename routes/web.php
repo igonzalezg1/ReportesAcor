@@ -23,7 +23,9 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Auth::routes();
+
+
+Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('cambiarcontrasena', [App\Http\Controllers\OpcionesExtrasController::class, 'cambiarcontrasena'])->name('cambiarcontrasena');
@@ -36,4 +38,6 @@ Route::group(['middleware'=> ['auth']], function(){
     //Rutas de reportes
 
     Route::get('getRespuestas/{id_encuesta}/{id_bloque}/{punto}', [App\Http\Controllers\ReportesController::class, 'getRespuestas'])->name('getRespuestas');
+
+    Route::get('filtrar_fechas/{start_date}/{end_date}/{id_encuesta}/{id_bloque}/{punto}', [App\Http\Controllers\ReportesController::class, 'filtrar_fechas'])->name('filtrar_fechas');
 });

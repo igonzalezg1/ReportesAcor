@@ -8,8 +8,12 @@
     @if (\Illuminate\Support\Facades\Auth::user())
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                <img alt="image" src="{{ \Illuminate\Support\Facades\Auth::user()->profile_image }}"
-                    class="rounded-circle mr-10 thumbnail-rounded user-thumbnail ">
+                @if(\Illuminate\Support\Facades\Auth::user()->profile_image != '')
+                    <img alt="image" src="{{ \Illuminate\Support\Facades\Auth::user()->profile_image }}"
+                         class="rounded-circle mr-10 thumbnail-rounded user-thumbnail ">
+                @else
+                    <img src="{{ asset('assets/images/usuario.png') }}" alt="Foto">
+                @endif
                 <div class="d-sm-none d-lg-inline-block">
                     Bienvenido, {{ \Illuminate\Support\Facades\Auth::user()->first_name }}</div>
             </a>

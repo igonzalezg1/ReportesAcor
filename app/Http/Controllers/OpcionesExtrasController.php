@@ -9,10 +9,12 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\tb_encuesta;
+use App\Models\calificaciones_mensuales;
 
 class OpcionesExtrasController extends Controller
 {
@@ -75,5 +77,19 @@ class OpcionesExtrasController extends Controller
         $encuestas3 = tb_encuesta::where('id_app', 16)->where('c_nombre_encuesta','LIKE', '%Anual%')->get();
 
         return $encuestas3;
+    }
+
+    public static function getCalMens()
+    {
+        $hotel = \Auth::user()->description;
+
+        $consulta = "SELECT * FROM calificaciones_mensuales WHERE fecha_calificacion = (SELECT max(fecha_calificacion) FROM calificaciones_mensuales) AND hotel = '$hotel'";
+
+        $calificacionMensual = DB::select($consulta);
+
+        foreach ($calificacionMensual as $cm){
+            $calif = $cm;
+        }
+        return $calif;
     }
 }

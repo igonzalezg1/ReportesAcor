@@ -7,6 +7,7 @@
     <link rel="icon" href="{{ asset('img/icono.ico') }}">
     <title>Reportes Accor</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <!-- Bootstrap 4.1.1 -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
@@ -18,11 +19,16 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('page_css')
 
-    <!-- Bulmma -->
+    <!-- Datatables -->
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" />
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap4.min.css" />
+
+    <!-- Selector de fechas -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('web/css/style.css') }}">
@@ -81,7 +87,6 @@
     @include('profile.edit_profile')
 
 </body>
-<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/popper.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
@@ -199,31 +204,31 @@
             buttons:[
                 {
                     extend: 'excelHtml5',
-                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    text: '<i class="fas fa-file-excel"></i>',
                     tittleAttr: 'Exportar a Excel',
                     className: 'btn btn-success'
                 },
                 {
                     extend: 'pdfHtml5',
-                    text: '<i class="fas fa-file-pdf"></i> PDF',
+                    text: '<i class="fas fa-file-pdf"></i>',
                     tittleAttr: 'Exportar a PDF',
                     className: 'btn btn-danger'
                 },
                 {
                     extend: 'print',
-                    text: '<i class="fas fa-print"></i> Imprimir',
+                    text: '<i class="fas fa-print"></i>',
                     tittleAttr: 'Imprimir',
                     className: 'btn btn-info'
                 },
                 {
                     extend: 'copy',
-                    text: '<i class="fas fa-copy"></i> Copiar',
+                    text: '<i class="fas fa-copy"></i>',
                     tittleAttr: 'Copiar en portapapeles',
                     className: 'btn btn-success'
                 },
                 {
                     extend: 'csvHtml5',
-                    text: '<i class="fas fa-file-csv"></i> CSV',
+                    text: '<i class="fas fa-file-csv"></i>',
                     tittleAttr: 'Exportar a CSV',
                     className: 'btn btn-danger'
                 },
@@ -259,31 +264,31 @@
             buttons:[
                 {
                     extend: 'excelHtml5',
-                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    text: '<i class="fas fa-file-excel"></i>',
                     tittleAttr: 'Exportar a Excel',
                     className: 'btn btn-success'
                 },
                 {
                     extend: 'pdfHtml5',
-                    text: '<i class="fas fa-file-pdf"></i> PDF',
+                    text: '<i class="fas fa-file-pdf"></i>',
                     tittleAttr: 'Exportar a PDF',
                     className: 'btn btn-danger'
                 },
                 {
                     extend: 'print',
-                    text: '<i class="fas fa-print"></i> Imprimir',
+                    text: '<i class="fas fa-print"></i>',
                     tittleAttr: 'Imprimir',
                     className: 'btn btn-info'
                 },
                 {
                     extend: 'copy',
-                    text: '<i class="fas fa-copy"></i> Copiar',
+                    text: '<i class="fas fa-copy"></i>',
                     tittleAttr: 'Copiar en portapapeles',
                     className: 'btn btn-success'
                 },
                 {
                     extend: 'csvHtml5',
-                    text: '<i class="fas fa-file-csv"></i> CSV',
+                    text: '<i class="fas fa-file-csv"></i>',
                     tittleAttr: 'Exportar a CSV',
                     className: 'btn btn-danger'
                 },
