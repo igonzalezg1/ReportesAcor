@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('content')
     @php
-        use App\Http\Controllers\OpcionesExtrasController;
-        use App\Http\Controllers\GraficasController;
+    use App\Http\Controllers\OpcionesExtrasController;
+    use App\Http\Controllers\GraficasController;
 
-        $calificacion = OpcionesExtrasController::getCalMens();
+    $calificacion = OpcionesExtrasController::getCalMens();
 
-        $anios= GraficasController::reportespmp();
+    $anios = GraficasController::reportespmp();
 
-        $aniosi = GraficasController::getIncidencias();
+    $aniosi = GraficasController::getIncidencias();
     @endphp
     <section class="section">
         <div class="section-header">
@@ -32,9 +32,11 @@
                                             <h1>Avance PMP</h1>
                                         </div>
                                         <div class="card-body">
-                                            <h2 class="text-center"><i
-                                                    class="fa fa-list"></i> <span> {{ $calificacion->avance_pmp }}%</span></h2>
-                                            <h6><span>Ultima actualizacion: {{ substr($calificacion->fecha_calificacion, 0, 10) }}-{{ substr($calificacion->fecha_calificacion, 10) }} Hrs</span></h6>
+                                            <h2 class="text-center"><i class="fa fa-list"></i> <span>
+                                                    {{ $calificacion->avance_pmp }}%</span></h2>
+                                            <h6><span>Ultima actualizacion:
+                                                    {{ substr($calificacion->fecha_calificacion, 0, 10) }}-{{ substr($calificacion->fecha_calificacion, 10) }}
+                                                    Hrs</span></h6>
                                             <a href="#" class="btn btn-primary text-white w-100">Ver mas</a>
                                         </div>
                                     </div>
@@ -45,9 +47,11 @@
                                             <h1>Calificacion del mes</h1>
                                         </div>
                                         <div class="card-body">
-                                            <h2 class="text-center"><i
-                                                    class="fa fa-chart-line"></i> <span> {{ $calificacion->calificacion }}</span></h2>
-                                            <h6><span>Ultima actualizacion: {{ substr($calificacion->fecha_calificacion, 0, 10) }}-{{ substr($calificacion->fecha_calificacion, 10) }} Hrs</span></h6>
+                                            <h2 class="text-center"><i class="fa fa-chart-line"></i> <span>
+                                                    {{ $calificacion->calificacion }}</span></h2>
+                                            <h6><span>Ultima actualizacion:
+                                                    {{ substr($calificacion->fecha_calificacion, 0, 10) }}-{{ substr($calificacion->fecha_calificacion, 10) }}
+                                                    Hrs</span></h6>
                                             <a href="#" class="btn btn-success text-white w-100">Ver mas</a>
                                         </div>
                                     </div>
@@ -133,49 +137,37 @@
             legend: {
                 enabled: false
             },
-            series: [
-                {
+            series: [{
                 name: 'Todos los años',
                 data: [
-                    @foreach($anios as $anio)
-                    {
-                        name: {{ $anio->anio }},
-                        y: {{ $anio->inspeciones }},
-                        drilldown: {{ $anio->anio }}
-                    },
+                    @foreach ($anios as $anio)
+                        {
+                            name: {{ $anio->anio }},
+                            y: {{ $anio->inspeciones }},
+                            drilldown: {{ $anio->anio }}
+                        },
                     @endforeach
                 ]
             }],
             drilldown: {
                 series: [
-                    @foreach($anios as $anio)
-                    {
-                    name: {{ $anio->anio }},
-                    id: {{ $anio->anio }},
-                    data: [
-                        @php
-                            $meses = GraficasController::getMeses($anio->anio);
-                        @endphp
-                            @foreach($meses as $mes)
-                            {
-                                name: {{ $mes->mes }},
-                                y: {{ $mes->inspeciones }},
-                                drilldown: {{ $mes->mes }}
-                            },
-                            @endforeach
-                            @foreach($meses as $mes)
-                            {
-                                name: {{ $mes->mes }},
-                                id: {{ $mes->mes }},
-                                data: [
-                                    ["Hola", 123],
-                                    ["De nuevo" , 123],
-                                    ["soy yo", 153]
-                                ]
-                            },
-                           @endforeach
-                    ]
-                    },
+                    @foreach ($anios as $anio)
+                        {
+                            name: {{ $anio->anio }},
+                            id: {{ $anio->anio }},
+                            data: [
+                                @php
+                                    $meses = GraficasController::getMeses($anio->anio);
+                                @endphp
+                                @foreach ($meses as $mes)
+                                    {
+                                        name: {{ $mes->mes }},
+                                        y: {{ $mes->inspeciones }},
+                                        drilldown: {{ $mes->mes }}
+                                    },
+                                @endforeach
+                            ]
+                        },
                     @endforeach
 
                 ]
@@ -214,49 +206,37 @@
             legend: {
                 enabled: false
             },
-            series: [
-                {
-                    name: 'Todos los años',
-                    data: [
-                            @foreach($aniosi as $anio)
+            series: [{
+                name: 'Todos los años',
+                data: [
+                    @foreach ($aniosi as $anio)
                         {
                             name: {{ $anio->anio }},
                             y: {{ $anio->inspeciones }},
                             drilldown: {{ $anio->anio }}
                         },
-                        @endforeach
-                    ]
-                }],
+                    @endforeach
+                ]
+            }],
             drilldown: {
                 series: [
-                        @foreach($aniosi as $anio)
-                    {
-                        name: {{ $anio->anio }},
-                        id: {{ $anio->anio }},
-                        data: [
+                    @foreach ($aniosi as $anio)
+                        {
+                            name: {{ $anio->anio }},
+                            id: {{ $anio->anio }},
+                            data: [
                                 @php
                                     $mesesi = GraficasController::getIncidenciasMes($anio->anio);
                                 @endphp
-                                @foreach($mesesi as $mes)
-                            {
-                                name: {{ $mes->mes }},
-                                y: {{ $mes->inspeciones }},
-                                drilldown: {{ $mes->mes }}
-                            },
+                                @foreach ($mesesi as $mes)
+                                    {
+                                        name: {{ $mes->mes }},
+                                        y: {{ $mes->inspeciones }},
+                                        drilldown: {{ $mes->mes }}
+                                    },
                                 @endforeach
-                                @foreach($mesesi as $mes)
-                            {
-                                name: {{ $mes->mes }},
-                                id: {{ $mes->mes }},
-                                data: [
-                                    ["Hola", 123],
-                                    ["De nuevo" , 123],
-                                    ["soy yo", 153]
-                                ]
-                            },
-                            @endforeach
-                        ]
-                    },
+                            ]
+                        },
                     @endforeach
 
                 ]
