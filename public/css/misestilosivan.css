@@ -1,0 +1,43 @@
+table th {
+    background-color: #337ab7 !important;
+    color: white !important;
+}
+
+table>tbody>tr>td {
+    vertical-align: middle !important;
+}
+
+.btn-group,
+.btn-group-vertical {
+    position: absolute !important;
+}
+
+.enca {
+    background: linear-gradient(to left, #FFE158 10%, #FFA851) !important;
+}
+
+.miclasex {
+    background-color: #414956 !important;
+}
+
+.miclasey {
+    background-color: #414956 !important;
+    padding: 50px !important;
+}
+
+.miclasey:hover {
+    background-color: #D8B465 !important;
+}
+
+.miclasex:hover {
+    background-color: #D8B465 !important;
+}
+
+.micolor{
+    background-color: #414956;
+}
+.colormenu {
+    background-color: #414956 !important;
+    height: 100vh !important;
+}
+

@@ -1,8 +1,3 @@
-<style>
-    .micolor{
-        background-color: #414956;
-    }
-</style>
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand micolor">
         <img class="navbar-brand-full app-header-logo" src="https://1000marcas.net/wp-content/uploads/2021/06/Accor-logo.png" width="65"
@@ -14,7 +9,7 @@
             <img class="navbar-brand-full" src="https://1000marcas.net/wp-content/uploads/2021/06/Accor-logo.png" width="45px" alt=""/>
         </a>
     </div>
-    <ul class="sidebar-menu">
+    <ul class="sidebar-menu colormenu">
         @include('layouts.menu')
     </ul>
 </aside>

@@ -24,6 +24,8 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap4.min.css" />
 
+
+    <link rel="stylesheet" href="{{ asset('css/misestilosivan.css') }}">
     <!-- Selector de fechas -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -35,30 +37,6 @@
     @yield('page_css')
     @yield('css')
 
-    <style>
-        table th {
-            background-color: #337ab7 !important;
-            color: white !important;
-        }
-
-        table>tbody>tr>td {
-            vertical-align: middle !important;
-        }
-
-        .btn-group,
-        .btn-group-vertical {
-            position: absolute !important;
-        }
-
-        .micolor {
-            background-color: #414956;
-        }
-    </style>
-    <style>
-        .enca {
-            background: linear-gradient(to left, #FFE158 10%, #FFA851) !important;
-        }
-    </style>
 </head>
 
 <body>
@@ -116,56 +94,6 @@
         };
     }(jQuery));
 </script>
-@if (session('resultado') == 'okcontra')
-    <script>
-        Swal.fire(
-            'Se cambio la contraseña!',
-            'Se cambio la contraseña correctamente.',
-            'success'
-        );
-    </script>
-@endif
-
-@if (session('resultado') == 'nocontra')
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'No se pudo guardar la contraseña',
-            text: 'No se pudo cambiar por que la contraseña es incorrecta!',
-        })
-    </script>
-@endif
-
-@if (session('resultado') == 'imgcamb')
-    <script>
-        Swal.fire(
-            'Se cambio la imagen!',
-            'Se cambio la imagen de perfil correctamente.',
-            'success'
-        );
-    </script>
-@endif
-
-<script>
-    $('#changePasswordForm').submit(function(e) {
-        e.preventDefault();
-        Swal.fire({
-            title: '¿Estas seguro de cambiar la contraseña?',
-            text: "Ya no habra vuelta atras!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Aceptar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.submit();
-
-            }
-        });
-    });
-</script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
@@ -175,152 +103,20 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap4.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
-<script>
-    let año = (new Date).getFullYear();
-    let mes = (new Date).getMonth() + 1;
-    let start = moment('' + año + '-' + mes + '').startOf('month');
-    let end = moment('' + año + '-' + mes + '').endOf('month');
-    let label = '';
+<script type="text/javascript" src="{{ asset('js/dtmio.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/mensajesswetalert.js') }}"></script>
 
-    $(document).ready(function() {
-       var DataTable= $('#DataTable').DataTable({
-            language: {
-                "decimal": "",
-                "emptyTable": "No hay información",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-                "infoPostFix": "",
-                "thousands": ",",
-                "lengthMenu": "Mostrar _MENU_ Entradas",
-                "loadingRecords": "Cargando...",
-                "processing": "Procesando...",
-                "search": "Buscar:",
-                "zeroRecords": "Sin resultados encontrados",
-                "paginate": {
-                    "first": "Primero",
-                    "last": "Ultimo",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
-                }
-            },
-            responsive: "true",
-            dom: "Bfrtilp",
-            buttons: [{
-                    extend: 'excelHtml5',
-                    text: '<i class="fas fa-file-excel"></i>',
-                    tittleAttr: 'Exportar a Excel',
-                    className: 'btn btn-success'
-                },
-                {
-                    extend: 'pdfHtml5',
-                    text: '<i class="fas fa-file-pdf"></i>',
-                    tittleAttr: 'Exportar a PDF',
-                    className: 'btn btn-danger'
-                },
-                {
-                    extend: 'print',
-                    text: '<i class="fas fa-print"></i>',
-                    tittleAttr: 'Imprimir',
-                    className: 'btn btn-info'
-                },
-                {
-                    extend: 'copy',
-                    text: '<i class="fas fa-copy"></i>',
-                    tittleAttr: 'Copiar en portapapeles',
-                    className: 'btn btn-success'
-                },
-                {
-                    extend: 'csvHtml5',
-                    text: '<i class="fas fa-file-csv"></i>',
-                    tittleAttr: 'Exportar a CSV',
-                    className: 'btn btn-danger'
-                },
-            ]
-        });
+@if (session('resultado') == 'okcontra')
+    <script>cambioc();</script>
+@endif
 
-                    let año = (new Date).getFullYear();
-                    let mes = (new Date).getMonth() + 1;
-                    let start = moment('' + año + '-' + mes + '').startOf('month');
-                    let end = moment('' + año + '-' + mes + '').endOf('month');
-                    let label = '';
+@if (session('resultado') == 'nocontra')
+    <script>nocontra();</script>
+@endif
 
-                    $('#daterange-btn').daterangepicker({
-                        locale: {
-                          format: 'YYYY/MM/DD'
-                        },
-                        startDate: moment(start),
-                        endDate: moment(end),
-                        ranges: {
-                          'Hoy': [moment(), moment()],
-                          'YTD': [moment().subtract(1, 'days').startOf('year'), moment()],
-                          'Ultimos 30 dias': [moment().subtract(29, 'days'), moment()],
-                          'Este mes': [moment().startOf('month'), moment().endOf('month')],
-                          'Mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-                        }
-                      },
-                      function(start, end, label) {
-                        if (isDate(start)) {
-                          $('#daterange-btn span').html(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
-                          minDateFilter = start;
-                          maxDateFilter = end;
-                          $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-                            var date = Date.parse(data[0]);
-                            if (
-                              (isNaN(minDateFilter) && isNaN(maxDateFilter)) ||
-                              (isNaN(minDateFilter) && date <= maxDateFilter) ||
-                              (minDateFilter <= date && isNaN(maxDateFilter)) ||
-                              (minDateFilter <= date && date <= maxDateFilter)
-                            ) {
-                              return true;
-                            }
-                            return false;
-                          });
-                          DataTable.draw();
-                        }
-                      });
+@if (session('resultado') == 'imgcamb')
+    <script>cambioi();</script>
+@endif
 
-
-
-                    function isDate(val) {
-                      return Date.parse(val);
-                    }
-
-                    function IncDecMonth(Action) {
-                      if (!isDate(start)) {
-                        start = moment().startOf('month');
-                      }
-                      if (Action == 'Inc') {
-                        start = moment(start).add(0, 'month').startOf('month');
-                        end = moment(start).endOf('month')
-                      } else {
-                        start = moment(start).subtract(0, 'month').startOf('month');
-                        end = moment(start).endOf('month')
-                      }
-                      if (isDate(start)) {
-                        $('#daterange-btn span').html(start.format('DD MMM YYYY') + ' - ' + end.format('DD MMM YYYY'));
-                      }
-                      minDateFilter = start;
-                      maxDateFilter = end;
-                      $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-                        var date = Date.parse(data[0]);
-                        if (
-                          (isNaN(minDateFilter) && isNaN(maxDateFilter)) ||
-                          (isNaN(minDateFilter) && date <= maxDateFilter) ||
-                          (minDateFilter <= date && isNaN(maxDateFilter)) ||
-                          (minDateFilter <= date && date <= maxDateFilter)
-                        ) {
-                          return true;
-                        }
-                        return false;
-                      });
-                      DataTable.draw();
-                    }
-
-                    IncDecMonth();
-    });
-
-
-</script>
-
+<script>pordef();</script>
 </html>

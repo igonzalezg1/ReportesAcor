@@ -8,25 +8,6 @@ $encuestas3 = OpcionesExtrasController::getAnualBim();
 
 ?>
 
-<style>
-    .miclasex {
-        background-color: #414956 !important;
-    }
-
-    .miclasey {
-        background-color: #414956 !important;
-        padding: 50px !important;
-    }
-
-    .miclasey:hover {
-        background-color: #D8B465 !important;
-    }
-
-    .miclasex:hover {
-        background-color: #D8B465 !important;
-    }
-</style>
-
 <li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
     <a class="nav-link text-white miclasex" href="/home"><i class=" fas fa-building"></i><span>Inicio</span></a>
     @can('ver-user')
