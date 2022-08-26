@@ -3,7 +3,13 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading">{{ $bloque->c_nombre_bloque }}</h3>
+            <div class="col-sm-4">
+                <h3 class="page__heading">{{ $bloque->c_nombre_bloque }}</h3>
+            </div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-warning float-right" onclick="tutorialreportes();"><i class="fa fa-play-circle" aria-hidden="true"></i><span> Iniciar tutorial</span></button>
+            </div>
         </div>
         <div class="section-body">
             <div class="row">
@@ -84,4 +90,23 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function tutorialreportes()
+        {
+            introJs().setOptions({
+                nextLabel: 'Siguiente',
+                prevLabel: 'Anterior',
+                doneLabel: 'Fin',
+                steps: [{
+                    intro: "Tutorial de reportes"
+                },
+                {
+                    element: document.querySelector('#daterange-btn'),
+                    intro: "Este filtro se usa para establecer un rango de fechas"
+                }
+            ]
+            }).start();
+        }
+    </script>
 @endsection

@@ -4,39 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\tb_encuesta_bloque;
-use App\Models\tb_encuesta_pregunta;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\tb_encuesta;
-use App\Models\calificaciones_mensuales;
+use Carbon\Carbon;
+use GuzzleHttp\Client;
 
 class OpcionesExtrasController extends Controller
 {
-    public function cambiarcontrasena(Request $request){
+    public function cambiarcontrasena(Request $request)
+    {
         $this->validate($request, [
-            'password'=> 'required|same:confirm-password',
-            'passwordold' =>'required',
+            'password' => 'required|same:confirm-password',
+            'passwordold' => 'required',
         ]);
 
         $pasword = $request->passwordold;
         $usuario = \Auth::user()->password;
-        if(Hash::check($pasword, $usuario))
-        {
+        if (Hash::check($pasword, $usuario)) {
             $cambio = \Auth::user()->user_id;
             $usuarioc = User::find($cambio);
             $pasword = $request->password;
             $usuarioc->update([
-                'password'=> Hash::make($pasword)
+                'password' => Hash::make($pasword)
             ]);
             $usuarioc->save();
             return back()->with('resultado', 'okcontra');
-        }else{
+        } else {
             return back()->with('resultado', 'nocontra');
         }
     }
@@ -60,7 +57,7 @@ class OpcionesExtrasController extends Controller
 
     public static function getEncuestas()
     {
-        $encuestas = tb_encuesta::where('id_app', 16)->where('c_nombre_encuesta','NOT LIKE', '%Anual%')->get();
+        $encuestas = tb_encuesta::where('id_app', 16)->where('c_nombre_encuesta', 'NOT LIKE', '%Anual%')->get();
 
         return $encuestas;
     }
@@ -74,7 +71,7 @@ class OpcionesExtrasController extends Controller
 
     public static function getAnualBim()
     {
-        $encuestas3 = tb_encuesta::where('id_app', 16)->where('c_nombre_encuesta','LIKE', '%Anual%')->get();
+        $encuestas3 = tb_encuesta::where('id_app', 16)->where('c_nombre_encuesta', 'LIKE', '%Anual%')->get();
 
         return $encuestas3;
     }
@@ -87,9 +84,71 @@ class OpcionesExtrasController extends Controller
 
         $calificacionMensual = DB::select($consulta);
 
-        foreach ($calificacionMensual as $cm){
+        foreach ($calificacionMensual as $cm) {
             $calif = $cm;
         }
         return $calif;
+    }
+
+    public static function habitacion19()
+    {
+        $punto19 = 0;
+        $carbon = Carbon::now('America/Mexico_City');
+        $client = new \GuzzleHttp\Client();
+
+        $res = $client->get(
+            'https://dashboard.sumapp.cloud/api/helpers/habitaciones-punto',
+            ['query' => [
+                'iniciales_hotel' => \Auth::user()->username,
+                'punto' => 19,
+                'año' => $carbon->yearIso,
+                'mes' => $carbon->month
+            ]]
+        );
+
+        if ($res->getStatusCode() == 200) {
+            $punto19 = $res->getBody();
+        }
+
+        return "Hola mundo";
+    }
+
+    public static function habitacion21()
+    {
+        $punto21 = 0;
+        $carbon = Carbon::now('America/Mexico_City');
+        $client = new \GuzzleHttp\Client();
+
+        $res = $client->get(
+            'https://dashboard.sumapp.cloud/api/helpers/habitaciones-punto',
+            ['query' => [
+                'iniciales_hotel' => \Auth::user()->username,
+                'punto' => 21,
+                'año' => $carbon->yearIso,
+                'mes' => $carbon->month
+            ]]
+        );
+
+        if ($res->getStatusCode() == 200) {
+            $punto21 = $res->getBody();
+        }
+
+        return "Hola mundo";
+    }
+
+    public static function habitacion15()
+    {
+        $client = new \GuzzleHttp\Client();
+        $res = $client->get('https://dashboard.sumapp.cloud/api/helpers/habitaciones', [
+            'query' => [
+                'iniciales_hotel' => \Auth::user()->username
+            ]
+        ]);
+        if ($res->getStatusCode() == 200) {
+            $habitaciones = json_decode($res->getBody());
+            $habitaciones15 = round((15 / 100) * $habitaciones, 0);
+        }
+
+        return $habitaciones15;
     }
 }

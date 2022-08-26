@@ -6,11 +6,23 @@
 <ul class="navbar-nav navbar-lefht">
 
     @if (\Illuminate\Support\Facades\Auth::user())
+        <li><a href="" class="nav-link nav-link-lg">
+                <h5><i class="fas fa-ticket-alt"></i></h5>
+            </a></li>
+        <li><a href="" class="nav-link nav-link-lg">
+                <h5><i class="far fa-calendar-alt"></i></h5>
+            </a></li>
+        <li><a href="" class="nav-link nav-link-lg">
+                <h5><i class="fas fa-building"></i></h5>
+            </a></li>
+        <li><a href="" class="nav-link nav-link-lg">
+                <h5><i class="fas fa-broom"></i></h5>
+            </a></li>
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                @if(\Illuminate\Support\Facades\Auth::user()->profile_image != '')
+                @if (\Illuminate\Support\Facades\Auth::user()->profile_image != '')
                     <img alt="image" src="{{ \Illuminate\Support\Facades\Auth::user()->profile_image }}"
-                         class="rounded-circle mr-10 thumbnail-rounded user-thumbnail ">
+                        class="rounded-circle mr-10 thumbnail-rounded user-thumbnail ">
                 @else
                     <img src="{{ asset('assets/images/usuario.png') }}" alt="Foto">
                 @endif
@@ -21,7 +33,7 @@
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">
                     Bienvenido, {{ \Illuminate\Support\Facades\Auth::user()->first_name }}</div>
-                    <a class="dropdown-item has-icon" data-toggle="modal" data-target="#changeImageModal" href="#"
+                <a class="dropdown-item has-icon" data-toggle="modal" data-target="#changeImageModal" href="#"
                     data-id="{{ \Auth::id() }}"><i class="fa fa-lock"> </i>Cambiar foto de perfil</a>
                 <a class="dropdown-item has-icon" data-toggle="modal" data-target="#changePasswordModal" href="#"
                     data-id="{{ \Auth::id() }}"><i class="fa fa-lock"> </i>Cambiar contraseña</a>

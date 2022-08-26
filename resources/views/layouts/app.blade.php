@@ -31,6 +31,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+    <!-- Tutorial (Intro JS) -->
+    <link rel="stylesheet" href="https://unpkg.com/intro.js/minified/introjs.min.css">
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('web/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('web/css/components.css') }}">
@@ -103,6 +105,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap4.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
 <script type="text/javascript" src="{{ asset('js/dtmio.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/mensajesswetalert.js') }}"></script>
 
