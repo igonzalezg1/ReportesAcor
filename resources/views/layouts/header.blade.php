@@ -1,3 +1,7 @@
+@php
+    use App\Http\Controllers\OpcionesExtrasController;
+    $tickets = OpcionesExtrasController::getInfoTickets();
+@endphp
 <form class="form-inline mr-auto" action="#">
     <ul class="navbar-nav mr-3">
         <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
@@ -6,14 +10,14 @@
 <ul class="navbar-nav navbar-lefht">
 
     @if (\Illuminate\Support\Facades\Auth::user())
-        <li><a href="" class="nav-link nav-link-lg">
+        <li><a href="https://tickets.sumapp.cloud/auth/prueba/logueo/auto/{{ $tickets[0] }}/{{ $tickets[1] }}" class="nav-link nav-link-lg">
                 <h5><i class="fas fa-ticket-alt"></i></h5>
             </a></li>
         <li><a href="" class="nav-link nav-link-lg">
                 <h5><i class="far fa-calendar-alt"></i></h5>
             </a></li>
         <li><a href="" class="nav-link nav-link-lg">
-                <h5><i class="fas fa-building"></i></h5>
+                <h5><i class="fas fa-hotel"></i></h5>
             </a></li>
         <li><a href="" class="nav-link nav-link-lg">
                 <h5><i class="fas fa-broom"></i></h5>

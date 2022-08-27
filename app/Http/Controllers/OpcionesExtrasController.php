@@ -151,4 +151,33 @@ class OpcionesExtrasController extends Controller
 
         return $habitaciones15;
     }
+    //ID app 16
+    public static function getStps(array $arraypuntos)
+    {
+        $query = 'SELECT id_bloque, c_nombre_bloque as nombre, numero, id_encuesta as ide
+        FROM tb_encuesta_bloque
+        WHERE id_encuesta IN (SELECT id_encuesta FROM tb_encuesta WHERE id_app=' . 16 . ')
+        AND numero IN (\'' . implode("', '", $arraypuntos) . '\')
+        GROUP BY numero
+        ORDER BY n_orden_bloque ASC ';
+
+        $stps = DB::select($query);
+
+        return $stps;
+    }
+
+    public static function getInfoTickets()
+    {
+        $username = \Auth::user()->username;
+        $query = "SELECT U.id_sucursal , U.id_empresa FROM tb_usuario U INNER JOIN tb_sucursal S ON S.id_sucursal=U.id_sucursal
+        INNER JOIN tb_empresa E ON E.id_empresa=U.id_empresa WHERE S.sucursal='" . $username . "' GROUP BY S.sucursal";
+
+        $sttickets = DB::select($query);
+
+        foreach ($sttickets as $ticket) {
+            $valores = [$ticket->id_empresa,$ticket->id_sucursal];
+        }
+
+        return $valores;
+    }
 }

@@ -2,15 +2,25 @@
 use App\Http\Controllers\OpcionesExtrasController;
 $encuestas = OpcionesExtrasController::getEncuestas();
 $encuestas3 = OpcionesExtrasController::getAnualBim();
+$stps = OpcionesExtrasController::getStps([89, 85, 90, 93, 101]);
+$proteccionIncendios = OpcionesExtrasController::getStps([1, 17, 22, 23, 24, 27, 39, 42, 47, 52, 78, 140, 50]);
+$proteccionCivil = OpcionesExtrasController::getStps([5, 6, 8, 25, 30, 31, 79, 81, 84, 85, 87, 88, 91, 95, 96, 98]);
+$tickets = OpcionesExtrasController::getInfoTickets();
+$salubridad = OpcionesExtrasController::getStps([11, 18, 37, 38, 40, 43, 45, 46, 74, 81, 83, 88, 100]);
 @endphp
 <li class="active">
-    <a class="nav-link text-white miclasex" href="/home"><i class=" fas fa-building"></i><span>Inicio</span></a>
+    <a class="nav-link text-white miclasex" href="/home"><i class="fas fa-tachometer-alt"></i><span>Tablero</span></a>
+</li>
+<li class="active">
+    <a class="nav-link text-white miclasex"
+        href="https://tickets.sumapp.cloud/auth/prueba/logueo/auto/{{ $tickets[0] }}/{{ $tickets[1] }}"><i
+            class="fas fa-ticket-alt"></i><span>Tickets</span></a>
 </li>
 <li class="menu-header">Reportes Accor</li>
 @foreach ($encuestas as $encuesta)
     <li class="dropdown">
         <a href="" class="nav-link has-dropdown text-white miclasex"><i
-                class=" fas fa-file-alt"></i><span>{{ substr($encuesta->c_nombre_encuesta, 0, 10) }}</span></a>
+                class="far fa-file-alt"></i><span>{{ substr($encuesta->c_nombre_encuesta, 0, 10) }}</span></a>
         <ul class="dropdown-menu" style="display:none;" _mstvisible="0">
             @foreach (OpcionesExtrasController::getBloques($encuesta->id_encuesta) as $bloque)
                 <li _mstvisible="1">
@@ -24,7 +34,7 @@ $encuestas3 = OpcionesExtrasController::getAnualBim();
     </li>
 @endforeach
 <li class="dropdown">
-    <a href="" class="nav-link has-dropdown text-white miclasex"><i class=" fas fa-file-alt"></i><span>Anual y
+    <a href="" class="nav-link has-dropdown text-white miclasex"><i class="far fa-file-alt"></i><span>Anual y
             semestral</span></a>
     <ul class="dropdown-menu" style="display:none;" _mstvisible="0">
         @foreach ($encuestas3 as $encuesta)
@@ -39,6 +49,62 @@ $encuestas3 = OpcionesExtrasController::getAnualBim();
                         </li>
                     @endforeach
                 </ul>
+            </li>
+        @endforeach
+    </ul>
+</li>
+
+<li class="dropdown">
+    <a href="" class="nav-link has-dropdown text-white miclasex"><i
+            class="far fa-file-alt"></i><span>STPS</span></a>
+    <ul class="dropdown-menu" style="display: none;" _mstvisible="0">
+        @foreach ($stps as $stps)
+            <li _mstvisible="1">
+                <a href="{{ route('getRespuestas', ['id_encuesta' => $stps->ide, 'id_bloque' => $stps->id_bloque, 'punto' => $stps->nombre]) }}"
+                    class="nav-link text-white miclasey" _msthash="1228461" _msttexthash="472654"
+                    _mstvisible="2">{{ $stps->nombre }}</a>
+            </li>
+        @endforeach
+    </ul>
+</li>
+
+<li class="dropdown">
+    <a href="" class="nav-link has-dropdown text-white miclasex"><i class="far fa-file-alt"></i><span>Proteccion
+            contra incendios</span></a>
+    <ul class="dropdown-menu" style="display: none;" _mstvisible="0">
+        @foreach ($proteccionIncendios as $stps)
+            <li _mstvisible="1">
+                <a href="{{ route('getRespuestas', ['id_encuesta' => $stps->ide, 'id_bloque' => $stps->id_bloque, 'punto' => $stps->nombre]) }}"
+                    class="nav-link text-white miclasey" _msthash="1228461" _msttexthash="472654"
+                    _mstvisible="2">{{ $stps->nombre }}</a>
+            </li>
+        @endforeach
+    </ul>
+</li>
+
+<li class="dropdown">
+    <a href="" class="nav-link has-dropdown text-white miclasex"><i class="far fa-file-alt"></i><span>Proteccion
+            civil</span></a>
+    <ul class="dropdown-menu" style="display: none;" _mstvisible="0">
+        @foreach ($proteccionCivil as $stps)
+            <li _mstvisible="1">
+                <a href="{{ route('getRespuestas', ['id_encuesta' => $stps->ide, 'id_bloque' => $stps->id_bloque, 'punto' => $stps->nombre]) }}"
+                    class="nav-link text-white miclasey" _msthash="1228461" _msttexthash="472654"
+                    _mstvisible="2">{{ $stps->nombre }}</a>
+            </li>
+        @endforeach
+    </ul>
+</li>
+
+<li class="dropdown">
+    <a href="" class="nav-link has-dropdown text-white miclasex"><i
+            class="far fa-file-alt"></i><span>Salubridad</span></a>
+    <ul class="dropdown-menu" style="display: none;" _mstvisible="0">
+        @foreach ($salubridad as $stps)
+            <li _mstvisible="1">
+                <a href="{{ route('getRespuestas', ['id_encuesta' => $stps->ide, 'id_bloque' => $stps->id_bloque, 'punto' => $stps->nombre]) }}"
+                    class="nav-link text-white miclasey" _msthash="1228461" _msttexthash="472654"
+                    _mstvisible="2">{{ $stps->nombre }}</a>
             </li>
         @endforeach
     </ul>
