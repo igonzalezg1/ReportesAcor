@@ -40,4 +40,12 @@ Route::group(['middleware'=> ['auth']], function(){
     Route::get('getRespuestas/{id_encuesta}/{id_bloque}/{punto}', [App\Http\Controllers\ReportesController::class, 'getRespuestas'])->name('getRespuestas');
 
     Route::get('filtrar_fechas/{start_date}/{end_date}/{id_encuesta}/{id_bloque}/{punto}', [App\Http\Controllers\ReportesController::class, 'filtrar_fechas'])->name('filtrar_fechas');
+
+    Route::get('sabanas',[App\Http\Controllers\SabanasController::class, 'index'])->name('sabanas');
+
+    Route::post('getsabanas21',[App\Http\Controllers\SabanasController::class, 'getsabanas21'])->name('getsabanas21');
+
+    Route::post('getsabanas19',[App\Http\Controllers\SabanasController::class, 'getsabanas19'])->name('getsabanas19');
+
+    Route::post('getlimpieza',[App\Http\Controllers\SabanasController::class, 'getlimpieza'])->name('getlimpieza');
 });

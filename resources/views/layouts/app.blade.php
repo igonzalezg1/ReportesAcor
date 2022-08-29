@@ -107,6 +107,12 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 <script type="text/javascript" src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
 <script type="text/javascript" src="{{ asset('js/dtmio.js') }}"></script>
+<script>
+    @php
+        $hotel = \Illuminate\Support\Facades\Auth::user()->last_name;
+    @endphp
+    todomidata('{{ $hotel }}');
+</script>
 <script type="text/javascript" src="{{ asset('js/mensajesswetalert.js') }}"></script>
 
 @if (session('resultado') == 'okcontra')

@@ -3,7 +3,7 @@ table th {
     color: white !important;
 }
 
-table>tbody>tr>td {
+table > tbody > tr > td {
     vertical-align: middle !important;
 }
 
@@ -13,7 +13,7 @@ table>tbody>tr>td {
 }
 
 .enca {
-    background: linear-gradient(to left, #FFE158 10%, #FFA851) !important;
+    background: linear-gradient(to left, #ffe158 10%, #ffa851) !important;
 }
 
 .miclasex {
@@ -26,14 +26,14 @@ table>tbody>tr>td {
 }
 
 .miclasey:hover {
-    background-color: #D8B465 !important;
+    background-color: #d8b465 !important;
 }
 
 .miclasex:hover {
-    background-color: #D8B465 !important;
+    background-color: #d8b465 !important;
 }
 
-.micolor{
+.micolor {
     background-color: #414956;
 }
 .colormenu {
@@ -46,8 +46,56 @@ table>tbody>tr>td {
     background: #000000;
 
     /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right, rgb(113, 107, 119), rgba(39, 42, 44, 1));
+    background: -webkit-linear-gradient(
+        to right,
+        rgb(113, 107, 119),
+        rgba(39, 42, 44, 1)
+    );
 
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, rgba(113, 107, 119), rgba(39, 42, 44, 1))
+    background: linear-gradient(
+        to right,
+        rgba(113, 107, 119),
+        rgba(39, 42, 44, 1)
+    );
+}
+
+.hide {
+    display: none !important;
+}
+
+.center-item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.text-orange {
+    color: #ffa533 !important;
+}
+
+#tablaSabana {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#tablaSabana td,
+#tablaSabana th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#tablaSabana tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#tablaSabana th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #108dcc;
+    color: white;
 }

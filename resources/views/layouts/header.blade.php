@@ -11,16 +11,16 @@
 
     @if (\Illuminate\Support\Facades\Auth::user())
         <li><a href="https://tickets.sumapp.cloud/auth/prueba/logueo/auto/{{ $tickets[0] }}/{{ $tickets[1] }}" class="nav-link nav-link-lg">
-                <h5><i class="fas fa-ticket-alt"></i></h5>
+                <h5><abbr title="Tickets"><i class="fas fa-ticket-alt"></i></abbr></h5>
             </a></li>
         <li><a href="" class="nav-link nav-link-lg">
-                <h5><i class="far fa-calendar-alt"></i></h5>
+                <h5><abbr title="Calificacion mensual"><i class="far fa-calendar-alt"></i></abbr></h5>
+            </a></li>
+        <li><a href="{{ asset('sabanas') }}" class="nav-link nav-link-lg">
+                <h5><abbr title="Sabana"><i class="fas fa-hotel"></i></abbr></h5>
             </a></li>
         <li><a href="" class="nav-link nav-link-lg">
-                <h5><i class="fas fa-hotel"></i></h5>
-            </a></li>
-        <li><a href="" class="nav-link nav-link-lg">
-                <h5><i class="fas fa-broom"></i></h5>
+                <h5><abbr title="limpieza"><i class="fas fa-broom"></i></abbr></h5>
             </a></li>
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
