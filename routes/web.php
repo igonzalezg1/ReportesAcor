@@ -48,4 +48,6 @@ Route::group(['middleware'=> ['auth']], function(){
     Route::post('getsabanas19',[App\Http\Controllers\SabanasController::class, 'getsabanas19'])->name('getsabanas19');
 
     Route::post('getlimpieza',[App\Http\Controllers\SabanasController::class, 'getlimpieza'])->name('getlimpieza');
+
+    Route::get('getcalmensual/{mes}', [App\Http\Controllers\CalificacionMensualController::class, 'index'])->name('getcalmensual');
 });

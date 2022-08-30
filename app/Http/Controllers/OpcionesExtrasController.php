@@ -10,8 +10,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Models\tb_encuesta;
+use App\Models\tb_habitaciones;
+use App\Models\tb_respuesta;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use DateTime;
 
 class OpcionesExtrasController extends Controller
 {
@@ -92,65 +95,100 @@ class OpcionesExtrasController extends Controller
 
     public static function habitacion19()
     {
-        $punto19 = 0;
         $carbon = Carbon::now('America/Mexico_City');
-        $client = new \GuzzleHttp\Client();
+        $iniciales = \Auth::user()->username;
+        $punto = 19;
+        $anio = $carbon->yearIso;
+        $mes = $carbon->month;
 
-        $res = $client->get(
-            'https://dashboard.sumapp.cloud/api/helpers/habitaciones-punto',
-            ['query' => [
-                'iniciales_hotel' => \Auth::user()->username,
-                'punto' => 19,
-                'año' => $carbon->yearIso,
-                'mes' => $carbon->month
-            ]]
-        );
+        $res = OpcionesExtrasController::getHabitacion19($iniciales, $punto, $anio, $mes);
 
-        if ($res->getStatusCode() == 200) {
-            $punto19 = $res->getBody();
+        return $res;
+    }
+
+    public static function habitacion192($mes)
+    {
+        $carbon = Carbon::now('America/Mexico_City');
+        $iniciales = \Auth::user()->username;
+        $punto = 19;
+        $anio = $carbon->yearIso;
+
+        $res = OpcionesExtrasController::getHabitacion19($iniciales, $punto, $anio, $mes);
+
+        return $res;
+    }
+
+    public static function habitaciones15()
+    {
+        $iniciales = \Auth::user()->username;
+        $query = "SELECT id_sucursal FROM tb_sucursal WHERE sucursal = '$iniciales' LIMIT 1";
+        $hotelesres = DB::select($query);
+        foreach ($hotelesres as $hr) {
+            $hotel = $hr->id_sucursal;
         }
 
-        return "Hola mundo";
+        $habitaciones = tb_habitaciones::query()
+            ->where('id_sucursal', $hotel)
+            ->get();
+
+        $habitaciones = $habitaciones->toArray();
+
+        $primer_habitacion = $habitaciones[0];
+        $pisos_base_datos = [];
+        $pisos_reales = [];
+        foreach (array_keys($primer_habitacion) as $key) {
+            if (substr($key, 0, 4) == 'piso') {
+                $pisos_base_datos[] = $key;
+            }
+        }
+
+        foreach ($pisos_base_datos as $piso) {
+            if ($primer_habitacion[$piso] != null) {
+                $pisos_reales[] = $piso;
+            }
+        }
+
+        if (count($pisos_reales) == 0) {
+            return [];
+        }
+
+        $habitaciones_real = [];
+        foreach ($habitaciones as $habitacion) {
+            foreach ($pisos_reales as $piso) {
+                if ($habitacion[$piso] != null) {
+                    array_push($habitaciones_real, $habitacion[$piso]);
+                }
+            }
+        }
+
+        return count($habitaciones_real);
     }
 
     public static function habitacion21()
     {
-        $punto21 = 0;
         $carbon = Carbon::now('America/Mexico_City');
-        $client = new \GuzzleHttp\Client();
+        $iniciales = \Auth::user()->username;
+        $punto = 21;
+        $anio = $carbon->yearIso;
+        $mes = $carbon->month;
 
-        $res = $client->get(
-            'https://dashboard.sumapp.cloud/api/helpers/habitaciones-punto',
-            ['query' => [
-                'iniciales_hotel' => \Auth::user()->username,
-                'punto' => 21,
-                'año' => $carbon->yearIso,
-                'mes' => $carbon->month
-            ]]
-        );
+        $res = OpcionesExtrasController::getHabitacion19($iniciales, $punto, $anio, $mes);
 
-        if ($res->getStatusCode() == 200) {
-            $punto21 = $res->getBody();
-        }
-
-        return "Hola mundo";
+        return $res;
     }
 
-    public static function habitacion15()
+    public static function habitacion212($mes)
     {
-        $client = new \GuzzleHttp\Client();
-        $res = $client->get('https://dashboard.sumapp.cloud/api/helpers/habitaciones', [
-            'query' => [
-                'iniciales_hotel' => \Auth::user()->username
-            ]
-        ]);
-        if ($res->getStatusCode() == 200) {
-            $habitaciones = json_decode($res->getBody());
-            $habitaciones15 = round((15 / 100) * $habitaciones, 0);
-        }
+        $carbon = Carbon::now('America/Mexico_City');
+        $iniciales = \Auth::user()->username;
+        $punto = 21;
+        $anio = $carbon->yearIso;
 
-        return $habitaciones15;
+        $res = OpcionesExtrasController::getHabitacion19($iniciales, $punto, $anio, $mes);
+
+        return $res;
     }
+
     //ID app 16
     public static function getStps(array $arraypuntos)
     {
@@ -175,9 +213,91 @@ class OpcionesExtrasController extends Controller
         $sttickets = DB::select($query);
 
         foreach ($sttickets as $ticket) {
-            $valores = [$ticket->id_empresa,$ticket->id_sucursal];
+            $valores = [$ticket->id_empresa, $ticket->id_sucursal];
         }
 
         return $valores;
+    }
+
+    public static function getMesesHeader()
+    {
+        $allmonth = array(
+            "ENERO",
+            "FEBRERO",
+            "MARZO",
+            "ABRIL",
+            "MAYO",
+            "JUNIO",
+            "JULIO",
+            "AGOSTO",
+            "SEPTIEMBRE",
+            "OCTUBRE",
+            "NOVIEMBRE",
+            "DICIEMBRE"
+        );
+        $now = new DateTime();
+        $thismonth = $now->format('n') - 1;
+        if ($thismonth == 0) {
+            $thismonth = 12;
+        }
+        $rangeMonths = array_slice($allmonth, 0, $thismonth);
+
+        return $rangeMonths;
+    }
+
+    public static function getMonth()
+    {
+        $now = new DateTime();
+        $thismonth = $now->format('n') - 1;
+        if ($thismonth == 0) {
+            $thismonth = 12;
+        }
+
+        return $thismonth;
+    }
+
+    public static function getUser()
+    {
+        $usuario = \Auth::user();
+
+        return $usuario;
+    }
+
+    public static function getHabitacion19($iniciales, $punto, $anio, $mes)
+    {
+        $query = "SELECT id_sucursal FROM tb_sucursal WHERE sucursal = '$iniciales' LIMIT 1";
+        $hotelesres = DB::select($query);
+        foreach ($hotelesres as $hr) {
+            $hotel = $hr->id_sucursal;
+        }
+        $query = "SELECT  A.id_app as id_app, S.id_sucursal as id_sucursal, E.id_encuesta as id_encuesta, B.id_bloque as id_bloque, P.id_pregunta as id_pregunta
+        FROM tb_encuesta_pregunta as P
+        INNER JOIN tb_encuesta_bloque as B ON B.id_bloque = P.id_bloque
+        INNER JOIN tb_encuesta AS E ON E.id_encuesta = B.id_encuesta
+        INNER JOIN tb_app AS A ON A.id_app = E.id_app
+        INNER JOIN tb_sucursal as S ON S.id_app = A.id_app
+        WHERE S.id_sucursal=$hotel
+        AND E.periodicidad='Diario'
+        AND B.numero=$punto
+        AND P.n_orden_pregunta=1
+        LIMIT 1";
+
+        $preguntas = DB::select($query);
+        foreach ($preguntas as $pr) {
+            $pregunta = $pr;
+        }
+
+        $respuestas = tb_respuesta::query()
+            ->select('respuesta')
+            ->where('sucursal', $pregunta->id_sucursal)
+            ->whereYear('fecha', $anio)
+            ->whereMonth('fecha', $mes)
+            ->where('idcuestionario', $pregunta->id_encuesta)
+            ->where('idbloque', $pregunta->id_bloque)
+            ->where('idpregunta', $pregunta->id_pregunta)
+            ->groupBy('clave_registro')
+            ->get();
+
+        return $respuestas->count();
     }
 }

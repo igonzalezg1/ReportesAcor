@@ -73,8 +73,7 @@
                                                 <td>
                                                     @if ($respuesta->latitud != '' and $respuesta->longitud != '')
                                                         <a class="btn btn-primary btn-md"
-                                                            href="https://maps.google.com/?q={{ $respuesta->latitud }},{{ $respuesta->longitud }}"><i
-                                                                class="fas fa-map-marked-alt"></i></a>
+                                                            href="https://maps.google.com/?q={{ $respuesta->latitud }},{{ $respuesta->longitud }}">{{ $respuesta->latitud }}, {{ $respuesta->longitud }}</a>
                                                     @else
                                                         no se registro ubicacion
                                                     @endif

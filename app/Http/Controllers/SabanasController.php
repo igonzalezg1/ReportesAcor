@@ -256,7 +256,7 @@ class SabanasController extends Controller
             }
         }
 
-        return 'SIN REVISAR';
+        return 'SIN RESPUESTA';
     }
 
     public static function obtenerUltimaFechat($habitacion, $tickets)
@@ -267,47 +267,47 @@ class SabanasController extends Controller
             }
         }
 
-        return 'SIN REVISAR';
+        return 'SIN RESPUESTA';
     }
 
 
     public static function colorFecha($fecha)
     {
-        if ($fecha == 'SIN REVISAR') {
+        if ($fecha == 'SIN RESPUESTA') {
             return 'text-danger';
         }
 
         $mesesTranscurridos = Carbon::createFromFormat('d-m-Y', $fecha)->diffInMonths() + 1;
         if ($mesesTranscurridos < 5) {
-            return 'text-primary';
-        }
-
-        if ($mesesTranscurridos >= 5 and $mesesTranscurridos <= 6) {
             return 'text-success';
         }
 
-        if ($mesesTranscurridos > 6) {
+        if ($mesesTranscurridos >= 5 and $mesesTranscurridos <= 6) {
             return 'text-warning';
+        }
+
+        if ($mesesTranscurridos > 6) {
+            return 'text-danger';
         }
     }
 
     public static function colorFechat($fecha)
     {
-        if ($fecha == 'SIN REVISAR') {
+        if ($fecha == 'SIN RESPUESTA') {
             return 'text-danger';
         }
 
         $mesesTranscurridos = Carbon::createFromFormat('d-m-Y', $fecha)->diffInMonths() + 1;
         if ($mesesTranscurridos <= 1) {
-            return 'text-primary';
-        }
-
-        if ($mesesTranscurridos > 1 and $mesesTranscurridos <= 2) {
             return 'text-success';
         }
 
+        if ($mesesTranscurridos > 1 and $mesesTranscurridos <= 2) {
+            return 'text-warning';
+        }
+
         if ($mesesTranscurridos > 2) {
-            return 'text-orange';
+            return 'text-danger';
         }
     }
 }

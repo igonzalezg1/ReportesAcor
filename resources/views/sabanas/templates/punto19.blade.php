@@ -49,10 +49,10 @@ use App\Http\Controllers\SabanasController;
     </div>
     <div class="col-12 col-md-6">
         <ol>
-            <li>Menor a 5 meses: <span class="text-primary"><b>FECHA</b></span></li>
-            <li>Entre 5 y 6 Meses: <span class="text-success"><b>FECHA</b></span></li>
-            <li>Mayor a 6 Meses: <span class="text-orange"><b>FECHA</b></span></li>
-            <li>No hay registros: <span class="text-danger"><b>SIN REVISAR</b></span></li>
+            <li>Menor a 5 meses: <span class="text-success"><b>FECHA</b></span></li>
+            <li>Entre 5 y 6 Meses: <span class="text-warning"><b>FECHA</b></span></li>
+            <li>Mayor a 6 Meses: <span class="text-danger"><b>FECHA</b></span></li>
+            <li>No hay registros: <span class="text-danger"><b>SIN RESPUESTA</b></span></li>
         </ol>
     </div>
 </div>

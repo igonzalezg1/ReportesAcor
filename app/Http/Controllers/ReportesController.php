@@ -16,7 +16,13 @@ class ReportesController extends Controller
     {
         $email = \Illuminate\Support\Facades\Auth::user()->email;
         $carpeta = DB::select("SELECT A.carpeta from tb_usuario as U INNER JOIN tb_app as A ON A.id_app=U.id_app WHERE U.correo='$email'");
-        $punto = filter_var($punto, FILTER_SANITIZE_NUMBER_INT);
+        if($punto == "SITE")
+        {
+            $punto = 139;
+        }else
+        {
+            $punto = filter_var($punto, FILTER_SANITIZE_NUMBER_INT);
+        }
         $carpeta2 = "";
 
         $bloque = tb_encuesta_bloque::find($id_bloque);
