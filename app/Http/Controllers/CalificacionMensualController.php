@@ -77,7 +77,7 @@ class CalificacionMensualController extends Controller
             ->where('sucursal', $id_sucursal)
             ->whereIn('idbloque', $bloques->pluck('id'))
             ->whereYear('fecha', $anio)
-            ->whereMonth('fecha', $mes)
+            ->whereMonth('fecha', $month)
             ->groupBy('idbloque')
             ->orderBy('fecha', 'DESC')
             ->get();

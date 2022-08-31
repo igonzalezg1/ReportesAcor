@@ -173,7 +173,7 @@ class SabanasController extends Controller
             }
             $i++;
         }
-        $html = view('sabanas.templates.punto19', compact('pisos_reales', 'habitaciones', 'respuestas'))->render();
+        $html = view('sabanas.templates.punto19', compact('pisos_reales', 'habitaciones', 'respuestas','punto','idEncuesta','idBloque', 'idsuc'))->render();
         return response()->json([
             'status' => true,
             'html' => $html,
@@ -309,5 +309,68 @@ class SabanasController extends Controller
         if ($mesesTranscurridos > 2) {
             return 'text-danger';
         }
+    }
+
+    public function getPreguntaEsp($respuestasHabitaciones, $idSucursal, $idEncuesta, $idBloque, $idPregunta)
+    {
+        $correo = \Auth::user()->email;
+    }
+
+    public static function obtenerpr(Int $punto, Int $idEncuesta, Int $idBloque)
+    {
+        $self = new Self;
+        switch ($punto) {
+            case 9: //Lectura energeticos
+                return SabanasController::consultaPunto9($idEncuesta, $idBloque);
+                break;
+
+            default:
+                return SabanasController::consultaGeneral($idEncuesta, $idBloque);
+                break;
+        }
+    }
+
+    public static function consultaGeneral(Int $idEncuesta, Int $idBloque, String $OrderBy = 'ASC')
+    {
+        $query = "
+            SELECT
+                id_pregunta as id,
+                c_titulo_pregunta as titulo,
+                c_tipo_pregunta as tipo
+            FROM tb_encuesta_pregunta
+            WHERE c_tipo_pregunta!='Separador'
+            AND id_encuesta='$idEncuesta'
+            AND id_bloque='$idBloque'
+            ORDER BY n_orden_pregunta $OrderBy
+        ";
+
+        $consulta = DB::select($query);
+        $resultadoFinal = [];
+        foreach ($consulta as $fila) {
+            array_push($resultadoFinal, $fila);
+        }
+        return $resultadoFinal;
+    }
+
+    public static function consultaPunto9(Int $idEncuesta, Int $idBloque, String $OrderBy = 'ASC')
+    {
+        $query = "
+            SELECT
+                id_pregunta as id,
+                c_titulo_pregunta as titulo,
+                c_tipo_pregunta as tipo
+            FROM tb_encuesta_pregunta
+            WHERE c_tipo_pregunta!='Separador'
+            AND id_encuesta='$idEncuesta'
+            AND id_bloque='$idBloque'
+            ORDER BY n_orden_pregunta $OrderBy
+        ";
+
+        $consulta = DB::select($query);
+        $resultadoFinal = [];
+        foreach ($consulta as $fila) {
+            array_push($resultadoFinal, $fila);
+        }
+        return $resultadoFinal;
     }
 }

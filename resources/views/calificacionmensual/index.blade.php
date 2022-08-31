@@ -27,7 +27,7 @@
                                     <div class="col-md-3 col-sm-3 col-xs-3">
                                         <div class="card" id="avancepmp">
                                             <div class="card-header bg-primary text-white text-center">
-                                                <h4 class="text-white">Calificación sin cálculo de p19 y p21:</h4>
+                                                <h4 class="text-white">PMP sin p19 y p21:</h4>
                                             </div>
                                             <div class="card-body">
                                                 <h4 class="text-center"><span>
@@ -49,7 +49,7 @@
                                     <div class="col-md-3 col-sm-3 col-xs-3">
                                         <div class="card" id="avancepmp">
                                             <div class="card-header bg-warning text-white">
-                                                <h4 class="text-white">Inspecciones punto 19:</h4>
+                                                <h4 class="text-white">Inspecciones P.19:</h4>
                                             </div>
                                             <div class="card-body">
                                                 <h4 class="text-center">{{ $habitacion19 }} de
@@ -61,10 +61,10 @@
                                     <div class="col-md-3 col-sm-3 col-xs-3">
                                         <div class="card" id="calificacionmes">
                                             <div class="card-header bg-danger text-white">
-                                                <h4 class="text-white">Inspecciones punto 21:</h4>
+                                                <h4 class="text-white">Inspecciones P.21:</h4>
                                             </div>
                                             <div class="card-body">
-                                                <h4 class="text-center"><i class="fa fa-bed"></i> {{ $habitacion21 }} de
+                                                <h4 class="text-center">{{ $habitacion21 }} de
                                                     {{ $habitaciones15 }}</span></h4>
                                                 <h5 class="text-center">(15% de {{ $habitaciones }})</h5>
                                             </div>

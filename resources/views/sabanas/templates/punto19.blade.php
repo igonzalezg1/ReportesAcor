@@ -38,6 +38,7 @@ use App\Http\Controllers\SabanasController;
         color: white;
     }
 </style>
+<hr>
 <div id="sabanaHeader" class="row">
     <div class="col-12 col-md-6">
         <div style="margin: 120px 0px 120px 0px !important;">
@@ -71,7 +72,10 @@ use App\Http\Controllers\SabanasController;
             @foreach ($habitaciones as $habitacion)
                 <tr>
                     @foreach ($pisos_reales as $piso)
-                        <td>{{ $habitacion->$piso }}</td>
+                    @php
+                        $pisoq = intval($habitacion->$piso);
+                    @endphp
+                            <td><a href="{{ route('getRespuestas19', ['id_encuesta' => 84, 'id_bloque' => 424, 'punto' => 19, 'piso'=> $pisoq]) }}">{{ $habitacion->$piso }}</a></td>
                         @if ($habitacion->$piso != null and $habitacion->$piso != '')
                             @php
                                 $fecha = SabanasController::obtenerUltimaFecha($habitacion->$piso, $respuestas);

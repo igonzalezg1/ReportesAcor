@@ -97,6 +97,44 @@
             });
         }
 
+        async function filtrarPregunta(respuestasHabitaciones, idSucursal, idEncuesta, idBloque, correoUsuario) {
+            event.preventDefault();
+            let form = new FormData(document.querySelector('#preguntasSabanaForm'));
+            let idPregunta = form.get('pregunta');
+            await generarSabanaPregunta(respuestasHabitaciones, idSucursal, idEncuesta, idBloque, correoUsuario,
+                idPregunta);
+        }
+
+        async function generarSabanaPregunta(respuestasHabitaciones, idSucursal, idEncuesta, idBloque, correoUsuario,
+            idPregunta) {
+            let divSabanaBody = document.querySelector('#sabanaBody');
+            await $.ajax({
+                data: {
+                    'respuestasHabitaciones': respuestasHabitaciones,
+                    'idSucursal': idSucursal,
+                    'idEncuesta': idEncuesta,
+                    'idBloque': idBloque,
+                    'idPregunta': idPregunta
+                },
+                url: 'getPreguntaEsp',
+                type: 'post',
+                beforeSend: () => {
+                    mostrarLoader();
+                    $('#sabanaBody').addClass('hide');
+                    divSabanaBody.innerHTML = '';
+                },
+                error: (response) => {
+                    quitarLoader();
+                    console.log(response);
+                },
+                success: (response) => {
+                    quitarLoader();
+                    $('#sabanaBody').removeClass('hide');
+                    divSabanaBody.innerHTML = response;
+                }
+            });
+        }
+
         function mostrarLoader() {
             Swal.fire({
                 title: 'Cargando',

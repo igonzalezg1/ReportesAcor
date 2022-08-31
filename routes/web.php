@@ -39,6 +39,10 @@ Route::group(['middleware'=> ['auth']], function(){
 
     Route::get('getRespuestas/{id_encuesta}/{id_bloque}/{punto}', [App\Http\Controllers\ReportesController::class, 'getRespuestas'])->name('getRespuestas');
 
+    Route::get('getRespuestas19/{id_encuesta}/{id_bloque}/{punto}/{piso}', [App\Http\Controllers\Reportes19Controller::class, 'getRespuestas'])->name('getRespuestas19');
+
+    Route::get('getRespuestas21/{id_encuesta}/{id_bloque}/{punto}/{piso}', [App\Http\Controllers\Reportes21Controller::class, 'getRespuestas'])->name('getRespuestas21');
+
     Route::get('filtrar_fechas/{start_date}/{end_date}/{id_encuesta}/{id_bloque}/{punto}', [App\Http\Controllers\ReportesController::class, 'filtrar_fechas'])->name('filtrar_fechas');
 
     Route::get('sabanas',[App\Http\Controllers\SabanasController::class, 'index'])->name('sabanas');
@@ -46,6 +50,8 @@ Route::group(['middleware'=> ['auth']], function(){
     Route::post('getsabanas21',[App\Http\Controllers\SabanasController::class, 'getsabanas21'])->name('getsabanas21');
 
     Route::post('getsabanas19',[App\Http\Controllers\SabanasController::class, 'getsabanas19'])->name('getsabanas19');
+
+    Route::post('getPreguntaEsp/{respuestasHabitaciones}/{idSucursal}/{idEncuesta}/{idBloque}/{idPregunta}', [App\Http\Controllers\SabanasController::class, 'SabanasController@getPreguntaEsp'])->name('getPreguntaEsp');
 
     Route::post('getlimpieza',[App\Http\Controllers\SabanasController::class, 'getlimpieza'])->name('getlimpieza');
 

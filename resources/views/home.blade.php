@@ -50,23 +50,25 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3 col-sm-3 col-xs-3">
-                                        <div class="card" id="avancepmp">
-                                            <div class="card-header bg-primary text-white text-center">
-                                                <h4 class="text-white">Avance PMP</h4>
+                                        <a href="{{ route('getcalmensual', ['mes' => ($fechahoy->month)]) }}">
+                                            <div class="card" id="avancepmp">
+                                                <div class="card-header bg-primary text-white text-center">
+                                                    <h4 class="text-white">Avance PMP</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <h6 class="text-center"><i class="fa fa-list"></i> <span>
+                                                            {{ $calificacion->avance_pmp }}%</span></h6>
+                                                    <p><span>Ultima actualizacion:
+                                                            {{ substr($calificacion->fecha_calificacion, 0, 10) }}-{{ substr($calificacion->fecha_calificacion, 10, 6) }}
+                                                            Hrs</span></p>
+                                                </div>
                                             </div>
-                                            <div class="card-body">
-                                                <h6 class="text-center"><i class="fa fa-list"></i> <span>
-                                                        {{ $calificacion->avance_pmp }}%</span></h6>
-                                                <p><span>Ultima actualizacion:
-                                                        {{ substr($calificacion->fecha_calificacion, 0, 10) }}-{{ substr($calificacion->fecha_calificacion, 10, 6) }}
-                                                        Hrs</span></p>
-                                            </div>
-                                        </div>
+                                        </a>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-3">
                                         <div class="card" id="calificacionmes">
                                             <div class="card-header bg-success text-white text-center">
-                                                <h4 class="text-white">Calificacion del mes</h4>
+                                                <h4 class="text-white">Calificacion final</h4>
                                             </div>
                                             <div class="card-body">
                                                 <h6 class="text-center"><i class="fa fa-chart-line"></i> <span>
@@ -85,8 +87,9 @@
                                             <div class="card-body">
                                                 <h6 class="text-center"><i class="fa fa-bed"></i> {{ $habitaciones19 }} de
                                                     {{ $habitaciones15 }}</span></h6>
-                                                <p><span>(15% de {{ $habitaciones }}) con última actualización de: <br /> {{ substr($fechahoy, 0, 10) }}-{{ substr($fechahoy, 10, 6) }}
-                                                    Hrs</span>
+                                                <p><span>(15% de {{ $habitaciones }}) última actualización: <br />
+                                                        {{ substr($fechahoy, 0, 10) }}-{{ substr($fechahoy, 10, 6) }}
+                                                        Hrs</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -99,8 +102,9 @@
                                             <div class="card-body">
                                                 <h6 class="text-center"><i class="fa fa-bed"></i> {{ $habitaciones21 }} de
                                                     {{ $habitaciones15 }}</span></h6>
-                                                <p><span>(15% de {{ $habitaciones }}) con última actualización de: <br /> {{ substr($fechahoy, 0, 10) }}-{{ substr($fechahoy, 10, 6) }}
-                                                    Hrs</span>
+                                                <p><span>(15% de {{ $habitaciones }}) última actualización: <br />
+                                                        {{ substr($fechahoy, 0, 10) }}-{{ substr($fechahoy, 10, 6) }}
+                                                        Hrs</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -292,6 +296,7 @@
         //--------------------
         //--------------------
         //--------------------
+
 
 
         //--------------------
