@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3 col-sm-3 col-xs-3">
-                                        <a href="{{ route('getcalmensual', ['mes' => ($fechahoy->month)]) }}">
+                                        <a href="{{ route('getcalmensual', ['mes' => $fechahoy->month]) }}">
                                             <div class="card" id="avancepmp">
                                                 <div class="card-header bg-primary text-white text-center">
                                                     <h4 class="text-white">Avance PMP</h4>
@@ -117,57 +117,6 @@
             </div>
         </div>
 
-
-        <!-- Graficas -->
-        <div class="section-body">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-12 col-md-12 col-xs-12">
-                                    <h3 class="text-center">Graficas generales</h3>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 col-sm-4 col-xs-4">
-                                    <div class="card" id="graficapmp">
-                                        <div class="card-header bg-warning text-center">
-                                            <h4 class="text-white">Inspecciones</h4>
-                                            <br />
-                                        </div>
-                                        <div class="card-body">
-                                            <div id="container"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-4 col-xs-4">
-                                    <div class="card" id="graficaincidencias">
-                                        <div class="card-header bg-danger text-white">
-                                            <h4 class="text-white">Incidencias</h4>
-                                            <br />
-                                        </div>
-                                        <div class="card-body">
-                                            <div id="container2"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-4 col-xs-4">
-                                    <div class="card">
-                                        <div class="card-header bg-info text-white">
-                                            <h4 class="text-white">Inspecciones por personal</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <div id="container3"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Tacometros de progreso -->
         <div class="section-body">
@@ -279,6 +228,62 @@
             </div>
         </div>
 
+        <!-- Graficas -->
+        <div class="section-body" loading="lazy">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-xs-12">
+                                    <h3 class="text-center">Graficas generales</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <div class="card" id="graficapmp">
+                                        <div class="card-header bg-warning text-center">
+                                            <h4 class="text-white">Inspecciones</h4>
+                                            <br />
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="container"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <div class="card" id="graficaincidencias">
+                                        <div class="card-header bg-danger text-white">
+                                            <h4 class="text-white">Incidencias</h4>
+                                            <br />
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="container2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <div class="card">
+                                        <div class="card-header bg-info text-white">
+                                            <h4 class="text-white">Inspecciones por personal</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="container3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <a href="{{ asset('mostrarlasg') }}" class="btn btn-primary w-100">Ver mas detalles de las graficas</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -298,7 +303,113 @@
         //--------------------
 
 
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                }
+            },
+            xAxis: {
+                type: 'category'
+            },
+            title: {
+                text: "Todos los años"
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    enabled: false
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                data: [
+                    @foreach ($anios as $anio)
+                        {
+                            name: {{ $anio->year }},
+                            y: {{ $anio->inspections }}
+                        },
+                    @endforeach
+                ]
+            }]
+        });
 
+        Highcharts.chart('container2', {
+            chart: {
+                type: 'column'
+            },
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                }
+            },
+            xAxis: {
+                type: 'category'
+            },
+            title: {
+                text: "Todos los años"
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    enabled: false
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                data: [
+                    @foreach ($aniosi as $anio)
+                        {
+                            name: {{ $anio->anio }},
+                            y: {{ $anio->inspeciones }}
+                        },
+                    @endforeach
+                ]
+            }]
+        });
+
+        Highcharts.chart('container3', {
+            chart: {
+                type: 'column'
+            },
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                }
+            },
+            xAxis: {
+                type: 'category'
+            },
+            title: {
+                text: "Todos los años"
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    enabled: false
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                data: [
+                    @foreach ($aniosr as $anio)
+                        {
+                            name: {{ $anio->anio }},
+                            y: {{ $anio->inspeciones }}
+                        },
+                    @endforeach
+                ]
+            }]
+        });
         //--------------------
         //--------------------
         // Tacometros

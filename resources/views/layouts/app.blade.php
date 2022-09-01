@@ -113,6 +113,12 @@
     @endphp
     todomidata('{{ $hotel }}');
 </script>
+<script>
+    var toolTrigetList = [].slice.call(document.querySelectorAll('[data-bs-toggle="mensaje"]'));
+    var tooltipList = toolTrigetList.map(function (toolTriggerEl){
+        return new bootstrap.Tooltip(toolTriggerEl);
+    });
+</script>
 <script type="text/javascript" src="{{ asset('js/mensajesswetalert.js') }}"></script>
 
 @if (session('resultado') == 'okcontra')

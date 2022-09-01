@@ -14,12 +14,12 @@ $month = OpcionesExtrasController::getMonth();
 
     @if (\Illuminate\Support\Facades\Auth::user())
         <li><a href="https://tickets.sumapp.cloud/auth/prueba/logueo/auto/{{ $tickets[0] }}/{{ $tickets[1] }}"
-                class="nav-link nav-link-lg">
-                <h5><abbr title="Tickets"><i class="fas fa-ticket-alt"></i></abbr></h5>
+                class="nav-link nav-link-lg" data-bs-toggle="mensaje" data-bs-placement="right" title="Tickets">
+                <h5><i class="fas fa-ticket-alt"></i></h5>
             </a></li>
         <!-- Calificacion mensual -->
         <li class="nav-item dropdown">
-            <a href="" data-toggle="dropdown" class="nav-link nav-link-lg has-dropdown"><h5><abbr title="Calificacion mensual"><i class="far fa-calendar-alt"></i></abbr></h5></a>
+            <a href="" title="Calificacion mensual" data-toggle="dropdown" class="nav-link nav-link-lg has-dropdown"><h5><i class="far fa-calendar-alt"></i></h5></a>
             <ul class="dropdown-menu">
                 @foreach ($rangeMonths as $k => $month)
                     <li class="nav-item"><a href="{{ route('getcalmensual', ['mes' => ($k+1)]) }}" class="nav-link text-primary" _msthash="1228461" _msttexthash="472654" _mstvisible="2"><i
@@ -29,11 +29,11 @@ $month = OpcionesExtrasController::getMonth();
         </li>
 
         <!-- Sabanas -->
-        <li><a href="{{ asset('sabanas') }}" class="nav-link nav-link-lg">
-                <h5><abbr title="Sabana"><i class="fas fa-hotel"></i></abbr></h5>
+        <li><a href="{{ asset('sabanas') }}" class="nav-link nav-link-lg" data-bs-toggle="mensaje" data-bs-placement="right" title="Sabana">
+                <h5><i class="fas fa-hotel"></i></h5>
             </a></li>
-        <li><a href="" class="nav-link nav-link-lg">
-                <h5><abbr title="limpieza"><i class="fas fa-broom"></i></abbr></h5>
+        <li><a href="" class="nav-link nav-link-lg" data-bs-toggle="mensaje" data-bs-placement="right" title="Limpieza">
+                <h5><i class="fas fa-broom"></i></h5>
             </a></li>
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">

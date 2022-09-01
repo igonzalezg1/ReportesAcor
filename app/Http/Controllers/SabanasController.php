@@ -95,7 +95,7 @@ class SabanasController extends Controller
             }
             $i++;
         }
-        $html = view('sabanas.templates.punto21', compact('pisos_reales', 'habitaciones', 'respuestas'))->render();
+        $html = view('sabanas.templates.punto21', compact('pisos_reales', 'habitaciones', 'respuestas','pregunta'))->render();
         return response()->json([
             'status' => true,
             'html' => $html,
@@ -127,11 +127,7 @@ class SabanasController extends Controller
         foreach ($bloque as $bloq) {
             $idBloque = $bloq->id_bloque;
         }
-        $query = "SELECT id_pregunta FROM tb_encuesta_pregunta WHERE c_titulo_pregunta LIKE '%$titulo_pregunta%' AND c_tipo_pregunta='Numerico' AND id_encuesta='$idEncuesta' LIMIT 1";
-        $pregunta = DB::select($query);
-        foreach ($pregunta as $preg) {
-            $idPregunta = $preg->id_pregunta;
-        }
+        $idPregunta = '12237';
         $query = "
             SELECT
             clave_registro,
@@ -173,7 +169,7 @@ class SabanasController extends Controller
             }
             $i++;
         }
-        $html = view('sabanas.templates.punto19', compact('pisos_reales', 'habitaciones', 'respuestas','punto','idEncuesta','idBloque', 'idsuc'))->render();
+        $html = view('sabanas.templates.punto19', compact('pisos_reales', 'habitaciones', 'respuestas', 'punto', 'idEncuesta', 'idBloque', 'idsuc'))->render();
         return response()->json([
             'status' => true,
             'html' => $html,
@@ -311,9 +307,93 @@ class SabanasController extends Controller
         }
     }
 
-    public function getPreguntaEsp($respuestasHabitaciones, $idSucursal, $idEncuesta, $idBloque, $idPregunta)
+    public function getPreguntaEsp(Request $request)
     {
+        $idSucursal = $request->idSucursal;
+        $idPregunta = $request->idPregunta;
+        $respuestasHabitaciones = $request->respuestasHabitaciones;
+        $idEncuesta = $request->idEncuesta;
+        $idBloque = $request->idBloque;
         $correo = \Auth::user()->email;
+        $punto = 19;
+
+        $query = "SELECT * FROM tb_habitaciones WHERE id_sucursal='$idSucursal'";
+        $habitaciones = DB::select($query);
+        $query = "SELECT c_tipo_pregunta as tipo, c_titulo_pregunta as titulo FROM tb_encuesta_pregunta WHERE id_pregunta='$idPregunta' AND id_encuesta='$idEncuesta' AND id_bloque='$idBloque' LIMIT 1";
+        $pre = DB::select($query);
+        foreach ($pre as $p) {
+            $pregunta = $p;
+        }
+        $query = "SELECT A.carpeta FROM tb_usuario as U INNER JOIN tb_app as A ON A.id_app=U.id_app WHERE U.correo='$correo'";
+        $pre = DB::select($query);
+        foreach ($pre as $p) {
+            $carpeta = $p;
+        }
+
+        $queryRespuestasPreguntas = "SELECT clave_registro, ";
+
+        if ($pregunta->tipo == 'Evidencia') {
+            $tipoPregunta = 'evidencia';
+            $queryRespuestasPreguntas .= "evidencia as '$tipoPregunta', ";
+        } else {
+            $tipoPregunta = 'respuesta';
+            $queryRespuestasPreguntas .= "respuesta as '$tipoPregunta', ";
+        }
+
+        $queryRespuestasPreguntas .= "
+            MAX(SUBSTR(fecha,1,10)) as fecha
+            FROM tb_respuesta
+            WHERE clave_registro IN ('" . implode("', '", array_column($respuestasHabitaciones, 'clave_registro')) . "')
+            AND idpregunta='$idPregunta'
+            AND idcuestionario='$idEncuesta'
+            AND idbloque='$idBloque'
+            AND $tipoPregunta IS NOT NULL
+            AND $tipoPregunta <> ''
+            GROUP BY clave_registro
+            ORDER BY fecha DESC
+        ";
+
+        $respuestasPreguntas = DB::select($queryRespuestasPreguntas);
+
+        $newRespuestasPreguntas = [];
+        foreach ($respuestasPreguntas as $respuestaPregunta) {
+            foreach ($respuestasHabitaciones as $respuestaHabitacion) {
+                if ($respuestaPregunta->clave_registro == $respuestaHabitacion['clave_registro']) {
+                    $newRespuestasPreguntas[] = [
+                        'habitacion' => $respuestaHabitacion['respuesta'],
+                        'fecha' => $respuestaHabitacion['fecha'],
+                        'respuesta' => $respuestaPregunta->$tipoPregunta
+                    ];
+                }
+            }
+        }
+
+        $i = 1;
+        foreach ($habitaciones as $habitacion) {
+            if ($i == 1) {
+                $pisos_base_datos = [];
+                $pisos_reales = [];
+                $cualquiera = json_decode(json_encode($habitacion), true);
+                foreach (array_keys($cualquiera) as $key) {
+                    if (substr($key, 0, 4) == 'piso') {
+                        $pisos_base_datos[] = $key;
+                    }
+                }
+                foreach ($pisos_base_datos as $piso) {
+                    if ($habitacion->$piso != null and $habitacion != '') {
+                        $pisos_reales[] = $piso;
+                    }
+                }
+            }
+            $i = $i + 1;
+        }
+
+        $html = view('sabanas.templates.puntoesp', compact('pisos_reales', 'habitaciones', 'newRespuestasPreguntas', 'punto', 'idEncuesta', 'idBloque', 'idSucursal','carpeta','pregunta'))->render();
+        return response()->json([
+            'status' => true,
+            'html' => $html,
+            'message' => 'Se genero el codigo bien.',
+        ]);
     }
 
     public static function obtenerpr(Int $punto, Int $idEncuesta, Int $idBloque)
@@ -372,5 +452,75 @@ class SabanasController extends Controller
             array_push($resultadoFinal, $fila);
         }
         return $resultadoFinal;
+    }
+
+    /**
+     * Obtiene la ultima respuesta registrada o un valor 'SIN REVISAR'
+     */
+    public static function obtenerUltimaRespuesta($habitacion, $newRespuestasPreguntas)
+    {
+        foreach ($newRespuestasPreguntas as $respuesta) {
+            if ($respuesta['habitacion'] == $habitacion) {
+                return [
+                    'fecha' => Carbon::parse($respuesta['fecha'])->format('d-m-Y'),
+                    'respuesta' => $respuesta['respuesta']
+                ];
+            }
+        }
+
+        return [
+            'fecha' => 'SIN REVISAR',
+            'respuesta' => 'SIN REVISAR'
+        ];
+    }
+
+    public static function nombrePisoEsp(String $nombrePiso)
+    {
+        $longitudNombre = strlen($nombrePiso);
+        $nuevoNombre = 'Piso ' . substr($nombrePiso, 4, $longitudNombre);
+        return $nuevoNombre;
+    }
+
+    /**
+     * Obtiene la ultima respuesta registrada o un valor 'SIN REVISAR'
+     */
+    public static function obtenerUltimaRespuestaEsp($habitacion, $newRespuestasPreguntas)
+    {
+        foreach ($newRespuestasPreguntas as $respuesta) {
+            if ($respuesta['habitacion'] == $habitacion) {
+                return [
+                    'fecha' => Carbon::parse($respuesta['fecha'])->format('d-m-Y'),
+                    'respuesta' => $respuesta['respuesta']
+                ];
+            }
+        }
+
+        return [
+            'fecha' => 'SIN REVISAR',
+            'respuesta' => 'SIN REVISAR'
+        ];
+    }
+
+    /**
+     * retorna la clase de color para la fecha
+     */
+    public static function colorFechaesp($fecha)
+    {
+        if ($fecha == 'SIN REVISAR') {
+            return 'text-danger';
+        }
+
+        $mesesTranscurridos = Carbon::createFromFormat('d-m-Y', $fecha)->diffInMonths() + 1;
+        if ($mesesTranscurridos < 5) {
+            return 'text-success';
+        }
+
+        if ($mesesTranscurridos >= 5 and $mesesTranscurridos <= 6) {
+            return 'text-warning';
+        }
+
+        if ($mesesTranscurridos > 6) {
+            return 'text-danger';
+        }
     }
 }

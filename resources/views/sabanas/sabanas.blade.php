@@ -97,15 +97,15 @@
             });
         }
 
-        async function filtrarPregunta(respuestasHabitaciones, idSucursal, idEncuesta, idBloque, correoUsuario) {
+        async function filtrarPregunta(respuestasHabitaciones, idSucursal, idEncuesta, idBloque) {
             event.preventDefault();
             let form = new FormData(document.querySelector('#preguntasSabanaForm'));
             let idPregunta = form.get('pregunta');
-            await generarSabanaPregunta(respuestasHabitaciones, idSucursal, idEncuesta, idBloque, correoUsuario,
+            await generarSabanaPregunta(respuestasHabitaciones, idSucursal, idEncuesta, idBloque,
                 idPregunta);
         }
 
-        async function generarSabanaPregunta(respuestasHabitaciones, idSucursal, idEncuesta, idBloque, correoUsuario,
+        async function generarSabanaPregunta(respuestasHabitaciones, idSucursal, idEncuesta, idBloque,
             idPregunta) {
             let divSabanaBody = document.querySelector('#sabanaBody');
             await $.ajax({
@@ -130,7 +130,8 @@
                 success: (response) => {
                     quitarLoader();
                     $('#sabanaBody').removeClass('hide');
-                    divSabanaBody.innerHTML = response;
+                    console.log(respuestasHabitaciones);
+                    divSabanaBody.innerHTML = response.html;
                 }
             });
         }

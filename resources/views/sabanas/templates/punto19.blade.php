@@ -58,6 +58,34 @@ use App\Http\Controllers\SabanasController;
     </div>
 </div>
 <hr>
+<div class="my-3">
+    <div class="row">
+        <div class="col-12">
+            @php
+                $preguntas = SabanasController::obtenerpr(19, $idEncuesta, $idBloque);
+
+                $respu = str_replace('"', "'", json_encode($respuestas));
+            @endphp
+            <div class="mx-auto" style="max-width: 500px;">
+                <form id="preguntasSabanaForm"
+                    onsubmit="filtrarPregunta(<?= $respu ?>, '<?= $idsuc ?>', '<?= $idEncuesta ?>', '<?= $idBloque ?>')">
+                    <div class="input-group">
+                        <select id="pregunta" name="pregunta" class="custom-select" required>
+                            <option value="">Elige una pregunta...</option>
+                            @foreach ($preguntas as $pregunta)
+                                <option value="{{ $pregunta->id }}">{{ $pregunta->titulo }}</option>
+                            @endforeach
+                        </select>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-danger">Filtrar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
 <div id="sabanaBody" class="table-responsive mt-3">
     <table id="tablaSabana">
         <thead>
@@ -72,10 +100,12 @@ use App\Http\Controllers\SabanasController;
             @foreach ($habitaciones as $habitacion)
                 <tr>
                     @foreach ($pisos_reales as $piso)
-                    @php
-                        $pisoq = intval($habitacion->$piso);
-                    @endphp
-                            <td><a href="{{ route('getRespuestas19', ['id_encuesta' => 84, 'id_bloque' => 424, 'punto' => 19, 'piso'=> $pisoq]) }}">{{ $habitacion->$piso }}</a></td>
+                        @php
+                            $pisoq = intval($habitacion->$piso);
+                        @endphp
+                        <td><a
+                                href="{{ route('getRespuestas19', ['id_encuesta' => 84, 'id_bloque' => 424, 'punto' => 19, 'piso' => $pisoq]) }}">{{ $habitacion->$piso }}</a>
+                        </td>
                         @if ($habitacion->$piso != null and $habitacion->$piso != '')
                             @php
                                 $fecha = SabanasController::obtenerUltimaFecha($habitacion->$piso, $respuestas);

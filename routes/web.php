@@ -47,11 +47,13 @@ Route::group(['middleware'=> ['auth']], function(){
 
     Route::get('sabanas',[App\Http\Controllers\SabanasController::class, 'index'])->name('sabanas');
 
+    Route::get('mostrarlasg',[App\Http\Controllers\GraficasController::class, 'index'])->name('mostrarlasg');
+
     Route::post('getsabanas21',[App\Http\Controllers\SabanasController::class, 'getsabanas21'])->name('getsabanas21');
 
     Route::post('getsabanas19',[App\Http\Controllers\SabanasController::class, 'getsabanas19'])->name('getsabanas19');
 
-    Route::post('getPreguntaEsp/{respuestasHabitaciones}/{idSucursal}/{idEncuesta}/{idBloque}/{idPregunta}', [App\Http\Controllers\SabanasController::class, 'SabanasController@getPreguntaEsp'])->name('getPreguntaEsp');
+    Route::post('getPreguntaEsp', [App\Http\Controllers\SabanasController::class, 'getPreguntaEsp'])->name('getPreguntaEsp');
 
     Route::post('getlimpieza',[App\Http\Controllers\SabanasController::class, 'getlimpieza'])->name('getlimpieza');
 
