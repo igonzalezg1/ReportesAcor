@@ -4,6 +4,8 @@
     use App\Http\Controllers\OpcionesExtrasController;
     use App\Http\Controllers\GraficasController;
     use Carbon\Carbon;
+    use koolreport\drilldown\DrillDown;
+    use koolreport\widgets\google\ColumnChart;
 
     $calificacion = OpcionesExtrasController::getCalMens();
 
@@ -22,6 +24,34 @@
     $habitaciones21 = OpcionesExtrasController::habitacion21();
 
     $fechahoy = Carbon::now('America/Mexico_City');
+
+    $dayProgress = GraficasController::getprogessday();
+
+    $porcentajeday = ($dayProgress * 100) / 10;
+
+    $monthProgress = GraficasController::getprogressmonth();
+
+    $porcentajeMonth = ($monthProgress * 100) / 11;
+
+    if ($porcentajeMonth > 100) {
+        $porcentajeMonth = 100;
+    }
+
+    $bimonthProgress = GraficasController::getprogressbimonth();
+
+    $porcentajebimonth = ($bimonthProgress * 100) / 42;
+
+    $semestral = GraficasController::getprogresssemestral();
+
+    $porcentajesemestral = ($semestral * 100) / 91;
+
+    $bloques_resultado = GraficasController::gettablasemestral();
+
+    $bloques_resultado2 = GraficasController::gettablasdiario();
+
+    $bloques_resultado3 = GraficasController::gettablamensual();
+
+    $bloques_resultado4 = GraficasController::gettablabimestral();
 
     @endphp
     <section class="section">
@@ -130,96 +160,111 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4 col-sm-4 col-xs-4">
-                                    <div class="card" id="graficapmp">
-                                        <div class="card-header bg-primary text-white">
-                                            <h3>Diario</h3>
-                                            <br />
-                                        </div>
-                                        <div class="card-body">
-                                            <canvas id="taco1"></canvas>
-                                        </div>
-                                        <div class="card-footer bg-secondary">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <h5 class="text-white">0.0</h5>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <h5 class="text-white">70%</h5>
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a data-toggle="modal" href="#diariorevision">
+                                        <div class="card">
+                                            <div class="card-header bg-primary text-white">
+                                                <h6>Diario</h6>
+                                                <br />
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="gauge">
+                                                    <canvas width="170" height="100" id="taco1"></canvas>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer bg-secondary">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <p class="text-dark">{{ $dayProgress }}</p>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <p class="text-dark">{{ $porcentajeday }}%</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
-                                <div class="col-md-4 col-sm-4 col-xs-4">
-                                    <div class="card" id="graficaincidencias">
-                                        <div class="card-header bg-secondary text-white">
-                                            <h3>Mensual</h3>
-                                            <br />
-                                        </div>
-                                        <div class="card-body">
-                                            <canvas id="taco2"></canvas>
-                                        </div>
-                                        <div class="card-footer bg-secondary">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <h5 class="text-white">0.0</h5>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <h5 class="text-white">70%</h5>
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a data-toggle="modal" href="#mensualrevision">
+                                        <div class="card" id="graficaincidencias">
+                                            <div class="card-header bg-danger text-white">
+                                                <h6>Mensual</h6>
+                                                <br />
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="gauge">
+                                                    <canvas width="170" height="100" id="taco2"></canvas>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer bg-secondary">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <p class="text-dark">{{ $monthProgress }}</p>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <p class="text-dark">{{ $porcentajeMonth }}%</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
-                                <div class="col-md-4 col-sm-4 col-xs-4">
-                                    <div class="card">
-                                        <div class="card-header bg-warning text-white">
-                                            <h3>Bimestral</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <canvas id="taco3"></canvas>
-                                        </div>
-                                        <div class="card-footer bg-secondary">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <h5 class="text-white">0.0</h5>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <h5 class="text-white">70%</h5>
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a data-toggle="modal" href="#bimensualrevision">
+                                        <div class="card">
+                                            <div class="card-header bg-warning text-white">
+                                                <h6>Bimestral</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="gauge">
+                                                    <canvas width="170" height="100" id="taco3"></canvas>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer bg-secondary">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <p class="text-dark">{{ $bimonthProgress }}</p>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <p class="text-dark">{{ $porcentajebimonth }}%</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
-                                <div class="col-md-4 col-sm-4 col-xs-4"></div>
-                                <div class="col-md-4 col-sm-4 col-xs-4">
-                                    <div class="card">
-                                        <div class="card-header bg-info text-white">
-                                            <h5>Anual/semestral</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <canvas id="taco4"></canvas>
-                                        </div>
-                                        <div class="card-footer bg-secondary">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <h5 class="text-white">0.0</h5>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <h5 class="text-white">70%</h5>
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a data-toggle="modal" href="#semestralrevision">
+                                        <div class="card">
+                                            <div class="card-header bg-info text-white">
+                                                <h6>Anual/semestral</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="gauge">
+                                                    <canvas width="170" height="100" id="taco4"></canvas>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer bg-secondary">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <p class="text-dark">{{ $semestral }}</p>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <p class="text-dark">{{ $porcentajesemestral }}%</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -273,11 +318,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <a href="{{ asset('mostrarlasg') }}" class="btn btn-primary w-100">Ver mas detalles de las graficas</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -285,6 +325,140 @@
         </div>
 
     </section>
+
+
+    <div class="modal fade" id="diariorevision" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Diario</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="padding:15px">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Punto</th>
+                                    <th>Realizado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($bloques_resultado2 as $bloque) : ?>
+                                        <tr>
+                                            <td><?= $bloque['titulo'] ?></td>
+                                            <td><?= $bloque['contesto'] ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mensualrevision" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Mensual</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="padding:15px">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Punto</th>
+                                    <th>Realizado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($bloques_resultado3 as $bloque) : ?>
+                                        <tr>
+                                            <td><?= $bloque['titulo'] ?></td>
+                                            <td><?= $bloque['contesto'] ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="bimensualrevision" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Bimestral/Trimestral</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="padding:15px">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Punto</th>
+                                    <th>Realizado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($bloques_resultado4 as $bloque) : ?>
+                                        <tr>
+                                            <td><?= $bloque['titulo'] ?></td>
+                                            <td><?= $bloque['contesto'] ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="semestralrevision" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Semestrales</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="padding:15px">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Punto</th>
+                                    <th>Realizado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($bloques_resultado as $bloque) : ?>
+                                        <tr>
+                                            <td><?= $bloque['titulo'] ?></td>
+                                            <td><?= $bloque['contesto'] ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -435,31 +609,31 @@
         };
         var target = document.getElementById('taco1'); // your canvas element
         var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-        gauge.maxValue = 100; // set max gauge value
+        gauge.maxValue = 10; // set max gauge value
         gauge.setMinValue(0); // Prefer setter over gauge.minValue = 0
         gauge.animationSpeed = 32; // set animation speed (32 is default value)
-        gauge.set(90); // set actual value
+        gauge.set({{ $dayProgress }}); // set actual value
 
         var target2 = document.getElementById('taco2'); // your canvas element
         var gauge2 = new Gauge(target2).setOptions(opts); // create sexy gauge!
-        gauge2.maxValue = 100; // set max gauge value
+        gauge2.maxValue = 11; // set max gauge value
         gauge2.setMinValue(0); // Prefer setter over gauge.minValue = 0
         gauge2.animationSpeed = 32; // set animation speed (32 is default value)
-        gauge2.set(10); // set actual value
+        gauge2.set({{ $monthProgress }}); // set actual value
 
         var target3 = document.getElementById('taco3'); // your canvas element
         var gauge3 = new Gauge(target3).setOptions(opts); // create sexy gauge!
-        gauge3.maxValue = 100; // set max gauge value
+        gauge3.maxValue = 42; // set max gauge value
         gauge3.setMinValue(0); // Prefer setter over gauge.minValue = 0
         gauge3.animationSpeed = 32; // set animation speed (32 is default value)
-        gauge3.set(70); // set actual value
+        gauge3.set({{ $bimonthProgress }}); // set actual value
 
         var target4 = document.getElementById('taco4'); // your canvas element
         var gauge4 = new Gauge(target4).setOptions(opts); // create sexy gauge!
-        gauge4.maxValue = 100; // set max gauge value
+        gauge4.maxValue = 91; // set max gauge value
         gauge4.setMinValue(0); // Prefer setter over gauge.minValue = 0
         gauge4.animationSpeed = 32; // set animation speed (32 is default value)
-        gauge4.set(50); // set actual value
+        gauge4.set({{ $semestral }}); // set actual value
     </script>
 
 

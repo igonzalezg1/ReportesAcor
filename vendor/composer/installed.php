@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '08215c828db56a37b675201a90b32f7a3d1eda0c',
+        'reference' => '165f6a56abd0829240a30875f1e7814e23d1446c',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -441,6 +441,15 @@
                 0 => '*',
             ),
         ),
+        'koolreport/core' => array(
+            'pretty_version' => '5.6.2',
+            'version' => '5.6.2.0',
+            'reference' => '34502fb26b799b8c1a2818c7ae273ee2cd697fb0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../koolreport/core',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'laravel-lang/lang' => array(
             'pretty_version' => '11.0.16',
             'version' => '11.0.16.0',
@@ -462,7 +471,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '08215c828db56a37b675201a90b32f7a3d1eda0c',
+            'reference' => '165f6a56abd0829240a30875f1e7814e23d1446c',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

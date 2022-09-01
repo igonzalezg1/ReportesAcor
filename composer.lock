@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9585febc607b7bdfa2c2285a4b1690da",
+    "content-hash": "28e18fe7c9d12e78829447333012c89f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1267,6 +1267,54 @@
             ],
             "abandoned": true,
             "time": "2022-02-03T10:51:30+00:00"
+        },
+        {
+            "name": "koolreport/core",
+            "version": "5.6.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/koolreport/core.git",
+                "reference": "34502fb26b799b8c1a2818c7ae273ee2cd697fb0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/koolreport/core/zipball/34502fb26b799b8c1a2818c7ae273ee2cd697fb0",
+                "reference": "34502fb26b799b8c1a2818c7ae273ee2cd697fb0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KoolPHP Inc",
+                    "homepage": "https://www.koolphp.net"
+                }
+            ],
+            "description": "An Open Source PHP Reporting Framework for easier and faster report delivery.",
+            "homepage": "https://www.koolreport.com",
+            "keywords": [
+                "PHP Reporting Framework",
+                "PHP Reporting Tools",
+                "charts and graphs",
+                "data processing",
+                "data visualization"
+            ],
+            "support": {
+                "issues": "https://github.com/koolreport/core/issues",
+                "source": "https://github.com/koolreport/core/tree/v5.6.2"
+            },
+            "time": "2022-05-17T04:16:36+00:00"
         },
         {
             "name": "laravel/framework",

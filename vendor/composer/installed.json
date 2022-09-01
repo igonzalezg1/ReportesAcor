@@ -1866,6 +1866,57 @@
             "install-path": "../infyomlabs/laravel-ui-stisla"
         },
         {
+            "name": "koolreport/core",
+            "version": "5.6.2",
+            "version_normalized": "5.6.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/koolreport/core.git",
+                "reference": "34502fb26b799b8c1a2818c7ae273ee2cd697fb0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/koolreport/core/zipball/34502fb26b799b8c1a2818c7ae273ee2cd697fb0",
+                "reference": "34502fb26b799b8c1a2818c7ae273ee2cd697fb0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "time": "2022-05-17T04:16:36+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KoolPHP Inc",
+                    "homepage": "https://www.koolphp.net"
+                }
+            ],
+            "description": "An Open Source PHP Reporting Framework for easier and faster report delivery.",
+            "homepage": "https://www.koolreport.com",
+            "keywords": [
+                "PHP Reporting Framework",
+                "PHP Reporting Tools",
+                "charts and graphs",
+                "data processing",
+                "data visualization"
+            ],
+            "support": {
+                "issues": "https://github.com/koolreport/core/issues",
+                "source": "https://github.com/koolreport/core/tree/v5.6.2"
+            },
+            "install-path": "../koolreport/core"
+        },
+        {
             "name": "laravel-lang/lang",
             "version": "11.0.16",
             "version_normalized": "11.0.16.0",
