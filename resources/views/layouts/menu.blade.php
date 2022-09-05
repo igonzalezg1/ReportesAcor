@@ -42,19 +42,22 @@ $salubridad = OpcionesExtrasController::getStps([11, 18, 37, 38, 40, 43, 45, 46,
         </ul>
     </li>
 @endforeach
+
+
 <li class="dropdown">
     <a href="" class="nav-link has-dropdown text-white miclasex"><i class="far fa-file-alt"></i><span>Anual y
             semestral</span></a>
     <ul class="dropdown-menu" style="display:none;" _mstvisible="0">
         @foreach ($encuestas3 as $encuesta)
-            <li class="dropdown nav-item">
+            <li class="dropdown-submenu nav-item">
                 <a href=""
                     class="nav-link has-dropdown text-white miclasex"><span>{{ substr($encuesta->c_nombre_encuesta, 18) }}</span></a>
                 <ul class="dropdown-menu">
                     @foreach (OpcionesExtrasController::getBloques($encuesta->id_encuesta) as $bloque)
-                        <li class="nav-item">
+                        <li>
                             <a href="{{ route('getRespuestas', ['id_encuesta' => $encuesta->id_encuesta, 'id_bloque' => $bloque->id_bloque, 'punto' => $bloque->c_nombre_bloque]) }}"
-                                class="nav-link text-white miclasey" data-bs-toggle="mensaje" data-bs-placement="right"
+                                class="dropdown-item text-white miclasey" data-bs-toggle="mensaje"
+                                data-bs-placement="right"
                                 title="{{ $bloque->c_nombre_bloque }}">{{ $bloque->c_nombre_bloque }}</a>
                         </li>
                     @endforeach
@@ -111,8 +114,7 @@ $salubridad = OpcionesExtrasController::getStps([11, 18, 37, 38, 40, 43, 45, 46,
 </li>
 
 <li class="dropdown">
-    <a href="" class="nav-link has-dropdown text-white miclasex"><i
-            class="far fa-file-alt"></i><span>Proteccion
+    <a href="" class="nav-link has-dropdown text-white miclasex"><i class="far fa-file-alt"></i><span>Proteccion
             civil</span></a>
     <ul class="dropdown-menu" style="display: none;" _mstvisible="0">
         @foreach ($proteccionCivil as $stps)
@@ -156,3 +158,37 @@ $salubridad = OpcionesExtrasController::getStps([11, 18, 37, 38, 40, 43, 45, 46,
         @endforeach
     </ul>
 </li>
+<li class="menu-header">Anual y semestral</li>
+@foreach ($encuestas3 as $encuesta)
+    <li class="dropdown">
+        @if (substr($encuesta->c_nombre_encuesta, 18) == '')
+            <a href="" class="nav-link has-dropdown text-white miclasex"><i
+                    class="far fa-file-alt"></i><span>(DICIEMBRE)</span></a>
+        @else
+            <a href="" class="nav-link has-dropdown text-white miclasex"><i
+                    class="far fa-file-alt"></i><span>{{ substr($encuesta->c_nombre_encuesta, 18) }}</span></a>
+        @endif
+
+        <ul class="dropdown-menu" style="display:none;" _mstvisible="0">
+            @foreach (OpcionesExtrasController::getBloques($encuesta->id_encuesta) as $bloque)
+                <li _mstvisible="1">
+                    @if (Str::length($bloque->c_nombre_bloque) < 24)
+                        <a href="{{ route('getRespuestas', ['id_encuesta' => $encuesta->id_encuesta, 'id_bloque' => $bloque->id_bloque, 'punto' => $bloque->c_nombre_bloque]) }}"
+                            class="nav-link text-white miclasey" _msthash="1228461" _msttexthash="472654"
+                            data-bs-toggle="mensaje" data-bs-placement="right"
+                            title="{{ $bloque->c_nombre_bloque }}"
+                            _mstvisible="2">{{ Str::substr($bloque->c_nombre_bloque, 0, 22) }}
+                        </a>
+                    @else
+                        <a href="{{ route('getRespuestas', ['id_encuesta' => $encuesta->id_encuesta, 'id_bloque' => $bloque->id_bloque, 'punto' => $bloque->c_nombre_bloque]) }}"
+                            class="nav-link text-white miclasey" _msthash="1228461" _msttexthash="472654"
+                            data-bs-toggle="mensaje" data-bs-placement="right"
+                            title="{{ $bloque->c_nombre_bloque }}"
+                            _mstvisible="2">{{ Str::substr($bloque->c_nombre_bloque, 0, 22) }}...
+                        </a>
+                    @endif
+                </li>
+            @endforeach
+        </ul>
+    </li>
+@endforeach

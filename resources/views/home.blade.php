@@ -1,57 +1,61 @@
 @extends('layouts.app')
 @section('content')
     @php
-    use App\Http\Controllers\OpcionesExtrasController;
-    use App\Http\Controllers\GraficasController;
-    use Carbon\Carbon;
-    use koolreport\drilldown\DrillDown;
-    use koolreport\widgets\google\ColumnChart;
+        use App\Http\Controllers\OpcionesExtrasController;
+        use App\Http\Controllers\GraficasController;
+        use Carbon\Carbon;
+        use koolreport\drilldown\DrillDown;
+        use koolreport\widgets\google\ColumnChart;
 
-    $calificacion = OpcionesExtrasController::getCalMens();
+        $fecha = Carbon::now('America/Mexico_City');
 
-    $anios = GraficasController::reportespmp();
+        if ($fecha->format('d') >= 4) {
+            $calificacion = OpcionesExtrasController::getCalMens();
+        }
 
-    $aniosi = GraficasController::getIncidencias();
+        $anios = GraficasController::reportespmp();
 
-    $aniosr = GraficasController::getResumen();
+        $aniosi = GraficasController::getIncidencias();
 
-    $habitaciones = OpcionesExtrasController::habitaciones15();
+        $aniosr = GraficasController::getResumen();
 
-    $habitaciones15 = round((15 / 100) * $habitaciones, 0);
+        $habitaciones = OpcionesExtrasController::habitaciones15();
 
-    $habitaciones19 = OpcionesExtrasController::habitacion19();
+        $habitaciones15 = round((15 / 100) * $habitaciones, 0);
 
-    $habitaciones21 = OpcionesExtrasController::habitacion21();
+        $habitaciones19 = OpcionesExtrasController::habitacion19();
 
-    $fechahoy = Carbon::now('America/Mexico_City');
+        $habitaciones21 = OpcionesExtrasController::habitacion21();
 
-    $dayProgress = GraficasController::getprogessday();
+        $fechahoy = Carbon::now('America/Mexico_City');
 
-    $porcentajeday = ($dayProgress * 100) / 10;
+        $dayProgress = GraficasController::getprogessday();
 
-    $monthProgress = GraficasController::getprogressmonth();
+        $porcentajeday = ($dayProgress * 100) / 10;
 
-    $porcentajeMonth = ($monthProgress * 100) / 11;
+        $monthProgress = GraficasController::getprogressmonth();
 
-    if ($porcentajeMonth > 100) {
-        $porcentajeMonth = 100;
-    }
+        $porcentajeMonth = ($monthProgress * 100) / 11;
 
-    $bimonthProgress = GraficasController::getprogressbimonth();
+        if ($porcentajeMonth > 100) {
+            $porcentajeMonth = 100;
+        }
 
-    $porcentajebimonth = ($bimonthProgress * 100) / 42;
+        $bimonthProgress = GraficasController::getprogressbimonth();
 
-    $semestral = GraficasController::getprogresssemestral();
+        $porcentajebimonth = ($bimonthProgress * 100) / 42;
 
-    $porcentajesemestral = ($semestral * 100) / 91;
+        $semestral = GraficasController::getprogresssemestral();
 
-    $bloques_resultado = GraficasController::gettablasemestral();
+        $porcentajesemestral = ($semestral * 100) / 91;
 
-    $bloques_resultado2 = GraficasController::gettablasdiario();
+        $bloques_resultado = GraficasController::gettablasemestral();
 
-    $bloques_resultado3 = GraficasController::gettablamensual();
+        $bloques_resultado2 = GraficasController::gettablasdiario();
 
-    $bloques_resultado4 = GraficasController::gettablabimestral();
+        $bloques_resultado3 = GraficasController::gettablamensual();
+
+        $bloques_resultado4 = GraficasController::gettablabimestral();
 
     @endphp
     <section class="section">
@@ -67,6 +71,89 @@
         </div>
 
         <!-- Tarjetas principales -->
+        @if ($fecha->format('d') >= 4)
+            <div class="section-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-xs-12">
+                                            <h3 class="text-center">Información del mes presente</h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                            <a href="{{ route('getcalmensual', ['mes' => $fechahoy->month]) }}">
+                                                <div class="card" id="avancepmp">
+                                                    <div class="card-header bg-primary text-white text-center">
+                                                        <h4 class="text-white">Avance PMP</h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h6 class="text-center"><i class="fa fa-list"></i> <span>
+                                                                {{ $calificacion->avance_pmp }}%</span></h6>
+                                                        <p><span>Ultima actualizacion:
+                                                                {{ substr($calificacion->fecha_calificacion, 0, 10) }}-{{ substr($calificacion->fecha_calificacion, 10, 6) }}
+                                                                Hrs</span></p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                            <div class="card" id="calificacionmes">
+                                                <div class="card-header bg-success text-white text-center">
+                                                    <h4 class="text-white">Calificacion final</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <h6 class="text-center"><i class="fa fa-chart-line"></i> <span>
+                                                            {{ $calificacion->calificacion }}</span></h6>
+                                                    <p><span>Ultima actualizacion:
+                                                            {{ substr($calificacion->fecha_calificacion, 0, 10) }}-{{ substr($calificacion->fecha_calificacion, 10, 6) }}
+                                                            Hrs</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                            <div class="card" id="avancepmp">
+                                                <div class="card-header bg-secondary text-white">
+                                                    <h4 class="text-white">Avance punto 19</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <h6 class="text-center"><i class="fa fa-bed"></i> {{ $habitaciones19 }}
+                                                        de
+                                                        {{ $habitaciones15 }}</span></h6>
+                                                    <p><span>(15% de {{ $habitaciones }}) última actualización: <br />
+                                                            {{ substr($fechahoy, 0, 10) }}-{{ substr($fechahoy, 10, 6) }}
+                                                            Hrs</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                            <div class="card" id="calificacionmes">
+                                                <div class="card-header bg-info text-white">
+                                                    <h4 class="text-white">Avance punto 21</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <h6 class="text-center"><i class="fa fa-bed"></i> {{ $habitaciones21 }}
+                                                        de
+                                                        {{ $habitaciones15 }}</span></h6>
+                                                    <p><span>(15% de {{ $habitaciones }}) última actualización: <br />
+                                                            {{ substr($fechahoy, 0, 10) }}-{{ substr($fechahoy, 10, 6) }}
+                                                            Hrs</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @else
         <div class="section-body">
             <div class="row">
                 <div class="col-lg-12">
@@ -80,20 +167,15 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3 col-sm-3 col-xs-3">
-                                        <a href="{{ route('getcalmensual', ['mes' => $fechahoy->month]) }}">
                                             <div class="card" id="avancepmp">
                                                 <div class="card-header bg-primary text-white text-center">
                                                     <h4 class="text-white">Avance PMP</h4>
                                                 </div>
                                                 <div class="card-body">
                                                     <h6 class="text-center"><i class="fa fa-list"></i> <span>
-                                                            {{ $calificacion->avance_pmp }}%</span></h6>
-                                                    <p><span>Ultima actualizacion:
-                                                            {{ substr($calificacion->fecha_calificacion, 0, 10) }}-{{ substr($calificacion->fecha_calificacion, 10, 6) }}
-                                                            Hrs</span></p>
+                                                            0%</span></h6>
                                                 </div>
                                             </div>
-                                        </a>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-3">
                                         <div class="card" id="calificacionmes">
@@ -102,10 +184,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <h6 class="text-center"><i class="fa fa-chart-line"></i> <span>
-                                                        {{ $calificacion->calificacion }}</span></h6>
-                                                <p><span>Ultima actualizacion:
-                                                        {{ substr($calificacion->fecha_calificacion, 0, 10) }}-{{ substr($calificacion->fecha_calificacion, 10, 6) }}
-                                                        Hrs</span></p>
+                                                        0.0</span></h6>
                                             </div>
                                         </div>
                                     </div>
@@ -115,12 +194,9 @@
                                                 <h4 class="text-white">Avance punto 19</h4>
                                             </div>
                                             <div class="card-body">
-                                                <h6 class="text-center"><i class="fa fa-bed"></i> {{ $habitaciones19 }} de
+                                                <h6 class="text-center"><i class="fa fa-bed"></i> 0
+                                                    de
                                                     {{ $habitaciones15 }}</span></h6>
-                                                <p><span>(15% de {{ $habitaciones }}) última actualización: <br />
-                                                        {{ substr($fechahoy, 0, 10) }}-{{ substr($fechahoy, 10, 6) }}
-                                                        Hrs</span>
-                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -130,12 +206,9 @@
                                                 <h4 class="text-white">Avance punto 21</h4>
                                             </div>
                                             <div class="card-body">
-                                                <h6 class="text-center"><i class="fa fa-bed"></i> {{ $habitaciones21 }} de
+                                                <h6 class="text-center"><i class="fa fa-bed"></i> 0
+                                                    de
                                                     {{ $habitaciones15 }}</span></h6>
-                                                <p><span>(15% de {{ $habitaciones }}) última actualización: <br />
-                                                        {{ substr($fechahoy, 0, 10) }}-{{ substr($fechahoy, 10, 6) }}
-                                                        Hrs</span>
-                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -146,6 +219,7 @@
                 </div>
             </div>
         </div>
+        @endif
 
 
         <!-- Tacometros de progreso -->
@@ -344,11 +418,11 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($bloques_resultado2 as $bloque) : ?>
-                                        <tr>
-                                            <td><?= $bloque['titulo'] ?></td>
-                                            <td><?= $bloque['contesto'] ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
+                                <tr>
+                                    <td><?= $bloque['titulo'] ?></td>
+                                    <td><?= $bloque['contesto'] ?></td>
+                                </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -377,11 +451,11 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($bloques_resultado3 as $bloque) : ?>
-                                        <tr>
-                                            <td><?= $bloque['titulo'] ?></td>
-                                            <td><?= $bloque['contesto'] ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
+                                <tr>
+                                    <td><?= $bloque['titulo'] ?></td>
+                                    <td><?= $bloque['contesto'] ?></td>
+                                </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -410,11 +484,11 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($bloques_resultado4 as $bloque) : ?>
-                                        <tr>
-                                            <td><?= $bloque['titulo'] ?></td>
-                                            <td><?= $bloque['contesto'] ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
+                                <tr>
+                                    <td><?= $bloque['titulo'] ?></td>
+                                    <td><?= $bloque['contesto'] ?></td>
+                                </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -443,11 +517,11 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($bloques_resultado as $bloque) : ?>
-                                        <tr>
-                                            <td><?= $bloque['titulo'] ?></td>
-                                            <td><?= $bloque['contesto'] ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
+                                <tr>
+                                    <td><?= $bloque['titulo'] ?></td>
+                                    <td><?= $bloque['contesto'] ?></td>
+                                </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -468,7 +542,7 @@
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
     <script src="https://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
-    <script>
+    <script defer>
         //--------------------
         //--------------------
         //Graficas

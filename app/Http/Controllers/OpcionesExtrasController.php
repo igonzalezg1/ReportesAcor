@@ -81,6 +81,8 @@ class OpcionesExtrasController extends Controller
 
     public static function getCalMens()
     {
+        $fechaact = Carbon::now();
+        $calif = ['avance_pmp','fecha_calificacion'];
         $hotel = \Auth::user()->description;
 
         $consulta = "SELECT * FROM calificaciones_mensuales WHERE fecha_calificacion = (SELECT max(fecha_calificacion) FROM calificaciones_mensuales) AND hotel = '$hotel'";
