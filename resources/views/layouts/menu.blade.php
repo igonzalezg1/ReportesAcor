@@ -9,7 +9,7 @@ $tickets = OpcionesExtrasController::getInfoTickets();
 $salubridad = OpcionesExtrasController::getStps([11, 18, 37, 38, 40, 43, 45, 46, 74, 81, 83, 88, 100]);
 @endphp
 <li class="active">
-    <a class="nav-link text-white miclasex" href="/home"><i class="fas fa-tachometer-alt"></i><span>Tablero</span></a>
+    <a class="nav-link text-white miclasex" href="{{ asset('home') }}"><i class="fas fa-tachometer-alt"></i><span>Tablero</span></a>
 </li>
 <li class="active">
     <a class="nav-link text-white miclasex"

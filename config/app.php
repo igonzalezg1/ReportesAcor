@@ -164,6 +164,8 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        // libreria PWA
+        Ladumor\LaravelPwa\PWAServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -230,6 +232,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'LaravelPwa' => \Ladumor\LaravelPwa\LaravelPwa::class,
 
     ],
 

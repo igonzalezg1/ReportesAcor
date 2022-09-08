@@ -353,12 +353,12 @@ class GraficasController extends Controller
 
         $bloques_resultado = [];
         foreach ($respuestas as $respuesta) {
-            if (in_array($respuesta['id_bloque'], array_column($bloques, 'id'))) {
-                $bloque_encontrado = $bloques[array_search($respuesta['id_bloque'], array_column($bloques, 'id'))];
+            if (in_array($respuesta->id_bloque, array_column($bloques, 'id'))) {
+                $bloque_encontrado = $bloques[array_search($respuesta->id_bloque, array_column($bloques, 'id'))];
                 array_push($bloques_resultado, [
-                    'id' => $bloque_encontrado['id'],
-                    'punto' => $bloque_encontrado['punto'],
-                    'titulo' => $bloque_encontrado['titulo'],
+                    'id' => $bloque_encontrado->id,
+                    'punto' => $bloque_encontrado->punto,
+                    'titulo' => $bloque_encontrado->titulo,
                     'contesto' => 'Si',
                 ]);
             }
@@ -515,12 +515,12 @@ class GraficasController extends Controller
 
         $bloques_resultado = [];
         foreach ($respuestas as $respuesta) {
-            if (in_array($respuesta['id_bloque'], array_column($bloques, 'id'))) {
-                $bloque_encontrado = $bloques[array_search($respuesta['id_bloque'], array_column($bloques, 'id'))];
+            if (in_array($respuesta->id_bloque, array_column($bloques, 'id'))) {
+                $bloque_encontrado = $bloques[array_search($respuesta->id_bloque, array_column($bloques, 'id'))];
                 array_push($bloques_resultado, [
-                    'id' => $bloque_encontrado['id'],
-                    'punto' => $bloque_encontrado['punto'],
-                    'titulo' => $bloque_encontrado['titulo'],
+                    'id' => $bloque_encontrado->id,
+                    'punto' => $bloque_encontrado->punto,
+                    'titulo' => $bloque_encontrado->titulo,
                     'contesto' => 'Si',
                 ]);
             }
@@ -678,12 +678,12 @@ class GraficasController extends Controller
 
         $bloques_resultado = [];
         foreach ($respuestas as $respuesta) {
-            if (in_array($respuesta['id_bloque'], array_column($bloques, 'id'))) {
-                $bloque_encontrado = $bloques[array_search($respuesta['id_bloque'], array_column($bloques, 'id'))];
+            if (in_array($respuesta->id_bloque, array_column($bloques, 'id'))) {
+                $bloque_encontrado = $bloques[array_search($respuesta->id_bloque, array_column($bloques, 'id'))];
                 array_push($bloques_resultado, [
-                    'id' => $bloque_encontrado['id'],
-                    'punto' => $bloque_encontrado['punto'],
-                    'titulo' => $bloque_encontrado['titulo'],
+                    'id' => $bloque_encontrado->id,
+                    'punto' => $bloque_encontrado->punto,
+                    'titulo' => $bloque_encontrado->titulo,
                     'contesto' => 'Si',
                 ]);
             }
@@ -849,12 +849,12 @@ class GraficasController extends Controller
 
         $bloques_resultado = [];
         foreach ($respuestas as $respuesta) {
-            if (in_array($respuesta['id_bloque'], array_column($bloques, 'id'))) {
-                $bloque_encontrado = $bloques[array_search($respuesta['id_bloque'], array_column($bloques, 'id'))];
+            if (in_array($respuesta->id_bloque, array_column($bloques, 'id'))) {
+                $bloque_encontrado = $bloques[array_search($respuesta->id_bloque, array_column($bloques, 'id'))];
                 array_push($bloques_resultado, [
-                    'id' => $bloque_encontrado['id'],
-                    'punto' => $bloque_encontrado['punto'],
-                    'titulo' => $bloque_encontrado['titulo'],
+                    'id' => $bloque_encontrado->id,
+                    'punto' => $bloque_encontrado->punto,
+                    'titulo' => $bloque_encontrado->titulo,
                     'contesto' => 'Si',
                 ]);
             }

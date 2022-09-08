@@ -10,11 +10,13 @@
     "require": {
         "php": "^7.3|^8.0",
         "barryvdh/laravel-dompdf": "^2.0",
+        "enlightn/enlightn": "1.8",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "infyomlabs/laravel-ui-stisla": "^3.1",
         "koolreport/core": "^5.6",
+        "ladumor/laravel-pwa": "^0.0.3",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.3",
@@ -24,6 +26,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
+        "enlightn/security-checker": "^1.10",
         "facade/ignition": "^2.3.6",
         "fzaninotto/faker": "^1.9.1",
         "laravel-lang/lang": "^11.0",

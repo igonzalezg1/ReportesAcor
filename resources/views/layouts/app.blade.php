@@ -3,6 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
+    <!-- PWA  -->
+    <meta name="theme-color" content="#6777ef" />
+    <link rel="apple-touch-icon" href="{{ asset('img/accor.png') }}">
+    <link rel="manifest" href="{{ asset('/manifest.json') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="{{ asset('img/icono.ico') }}">
     <title>Reportes Accor</title>
@@ -115,23 +119,39 @@
 </script>
 <script>
     var toolTrigetList = [].slice.call(document.querySelectorAll('[data-bs-toggle="mensaje"]'));
-    var tooltipList = toolTrigetList.map(function (toolTriggerEl){
+    var tooltipList = toolTrigetList.map(function(toolTriggerEl) {
         return new bootstrap.Tooltip(toolTriggerEl);
     });
 </script>
 <script type="text/javascript" src="{{ asset('js/mensajesswetalert.js') }}"></script>
 
 @if (session('resultado') == 'okcontra')
-    <script>cambioc();</script>
+    <script>
+        cambioc();
+    </script>
 @endif
 
 @if (session('resultado') == 'nocontra')
-    <script>nocontra();</script>
+    <script>
+        nocontra();
+    </script>
 @endif
 
 @if (session('resultado') == 'imgcamb')
-    <script>cambioi();</script>
+    <script>
+        cambioi();
+    </script>
 @endif
 
-<script>pordef();</script>
+<script>
+    pordef();
+</script>
+<script src="{{ asset('/sw.js') }}"></script>
+<script>
+    if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("/sw.js").then(function(reg) {
+            console.log("Service worker has been registered for scope: " + reg.scope);
+        });
+    }
+</script>
 </html>
